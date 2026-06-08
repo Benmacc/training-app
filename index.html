@@ -12,220 +12,62 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --orange: #ff6b00;
-    --orange-light: #ff8c38;
-    --orange-dim: rgba(255,107,0,0.12);
-    --green: #22c55e;
-    --blue: #3b82f6;
-    --purple: #a855f7;
-    --yellow: #eab308;
-    --bg: #0a0a0a;
-    --surface: #141414;
-    --surface2: #1e1e1e;
-    --border: rgba(255,255,255,0.07);
-    --text: #f0f0f0;
-    --text-secondary: #888;
-    --text-dim: #555;
-    --radius: 16px;
-    --tab-h: 72px;
-    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --orange: #ff6b00; --orange-light: #ff8c38; --orange-dim: rgba(255,107,0,0.12);
+    --green: #22c55e; --blue: #3b82f6; --purple: #a855f7; --yellow: #eab308;
+    --bg: #0a0a0a; --surface: #141414; --surface2: #1e1e1e;
+    --border: rgba(255,255,255,0.07); --text: #f0f0f0; --text-secondary: #888; --text-dim: #555;
+    --radius: 16px; --tab-h: 72px; --safe-bottom: env(safe-area-inset-bottom, 0px);
   }
-
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  /* TABS */
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
   #app { padding-bottom: calc(var(--tab-h) + var(--safe-bottom)); }
-
-  .tab-bar {
-    position: fixed; bottom: 0; left: 0; right: 0;
-    height: calc(var(--tab-h) + var(--safe-bottom));
-    padding-bottom: var(--safe-bottom);
-    background: rgba(14,14,14,0.92);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-top: 1px solid var(--border);
-    display: flex;
-    z-index: 100;
-  }
-
-  .tab-btn {
-    flex: 1; display: flex; flex-direction: column; align-items: center;
-    justify-content: center; gap: 4px; border: none; background: none;
-    color: var(--text-dim); font-family: 'DM Sans', sans-serif;
-    font-size: 10px; font-weight: 500; cursor: pointer;
-    transition: color 0.2s; padding: 0;
-  }
-
+  .tab-bar { position: fixed; bottom: 0; left: 0; right: 0; height: calc(var(--tab-h) + var(--safe-bottom)); padding-bottom: var(--safe-bottom); background: rgba(14,14,14,0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid var(--border); display: flex; z-index: 100; }
+  .tab-btn { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; border: none; background: none; color: var(--text-dim); font-family: 'DM Sans', sans-serif; font-size: 10px; font-weight: 500; cursor: pointer; transition: color 0.2s; padding: 0; }
   .tab-btn.active { color: var(--orange); }
   .tab-btn svg { width: 22px; height: 22px; }
-
-  /* PAGES */
   .page { display: none; min-height: 100vh; padding: 0 0 20px; animation: fadeUp 0.25s ease; }
   .page.active { display: block; }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* HEADER */
-  .page-header {
-    padding: 56px 20px 16px;
-    background: var(--bg);
-    position: sticky; top: 0; z-index: 10;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .page-header h1 {
-    font-size: 28px; font-weight: 700; letter-spacing: -0.5px;
-  }
-
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .page-header { padding: 56px 20px 16px; background: var(--bg); position: sticky; top: 0; z-index: 10; border-bottom: 1px solid var(--border); }
+  .page-header h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
   .page-header .subtitle { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
-
-  /* CARDS */
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px;
-    margin: 12px 16px 0;
-  }
-
-  .card-label {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--text-secondary); margin-bottom: 12px;
-  }
-
-  /* COUNTDOWN CARD */
-  .countdown-card {
-    background: linear-gradient(135deg, #1a0d00 0%, #0f0f0f 100%);
-    border: 1px solid rgba(255,107,0,0.2);
-    border-radius: var(--radius);
-    padding: 18px;
-    margin: 12px 16px 0;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin: 12px 16px 0; }
+  .card-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 12px; }
+  .countdown-card { background: linear-gradient(135deg, #1a0d00 0%, #0f0f0f 100%); border: 1px solid rgba(255,107,0,0.2); border-radius: var(--radius); padding: 18px; margin: 12px 16px 0; display: flex; align-items: center; justify-content: space-between; }
   .countdown-card .race-name { font-size: 15px; font-weight: 600; }
   .countdown-card .race-date { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
   .countdown-card .days-num { font-size: 38px; font-weight: 700; color: var(--orange); font-family: 'DM Mono', monospace; line-height: 1; }
   .countdown-card .days-label { font-size: 11px; color: var(--text-secondary); text-align: right; margin-top: 2px; }
-
-  /* SESSION CARD */
-  .session-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px;
-    margin: 12px 16px 0;
-    display: flex; align-items: center; gap: 14px;
-  }
-
+  .session-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin: 12px 16px 0; display: flex; align-items: center; gap: 14px; }
   .session-emoji { font-size: 36px; }
   .session-title { font-size: 16px; font-weight: 600; }
   .session-week { font-size: 12px; color: var(--text-secondary); margin-top: 3px; }
-  .session-milestone {
-    display: inline-flex; align-items: center; gap: 4px;
-    font-size: 11px; font-weight: 600; color: var(--yellow);
-    margin-top: 4px;
-  }
-
-  /* CHECKLIST */
-  .check-item {
-    display: flex; align-items: flex-start; gap: 12px;
-    padding: 10px 0; border-bottom: 1px solid var(--border);
-    cursor: pointer; user-select: none;
-  }
-
+  .session-milestone { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; color: var(--yellow); margin-top: 4px; }
+  .check-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; }
   .check-item:last-child { border-bottom: none; }
-
-  .check-circle {
-    width: 22px; height: 22px; border-radius: 50%;
-    border: 2px solid var(--text-dim); flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s; margin-top: 1px;
-  }
-
-  .check-item.checked .check-circle {
-    background: var(--orange); border-color: var(--orange);
-  }
-
+  .check-circle { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--text-dim); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; margin-top: 1px; }
+  .check-item.checked .check-circle { background: var(--orange); border-color: var(--orange); }
   .check-circle svg { width: 12px; height: 12px; opacity: 0; transition: opacity 0.2s; }
   .check-item.checked .check-circle svg { opacity: 1; }
-
   .check-text { flex: 1; }
   .check-name { font-size: 14px; font-weight: 500; transition: color 0.2s; }
   .check-item.checked .check-name { color: var(--text-dim); text-decoration: line-through; }
   .check-desc { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
-
-  /* PROGRESS BAR */
   .progress-bar-wrap { background: rgba(255,255,255,0.06); border-radius: 100px; height: 6px; overflow: hidden; }
   .progress-bar-fill { height: 100%; border-radius: 100px; background: var(--orange); transition: width 0.4s ease; }
   .progress-bar-fill.green { background: var(--green); }
-
-  /* STREAK BADGE */
-  .streak-badge {
-    display: inline-flex; align-items: center; gap: 5px;
-    background: var(--orange-dim); border: 1px solid rgba(255,107,0,0.2);
-    border-radius: 100px; padding: 3px 10px; font-size: 12px;
-    font-weight: 600; color: var(--orange);
-  }
-
-  /* MARK COMPLETE BTN */
-  .complete-btn {
-    width: 100%; padding: 13px; border-radius: 12px; border: none;
-    font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
-    cursor: pointer; transition: all 0.2s; margin-top: 12px;
-    background: var(--orange); color: white;
-  }
-
+  .streak-badge { display: inline-flex; align-items: center; gap: 5px; background: var(--orange-dim); border: 1px solid rgba(255,107,0,0.2); border-radius: 100px; padding: 3px 10px; font-size: 12px; font-weight: 600; color: var(--orange); }
+  .complete-btn { width: 100%; padding: 13px; border-radius: 12px; border: none; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-top: 12px; background: var(--orange); color: white; }
   .complete-btn.done { background: var(--green); }
   .complete-btn:active { transform: scale(0.97); }
-
-  /* LOG RUN BTN */
-  .log-run-btn {
-    display: flex; align-items: center; gap: 8px;
-    background: var(--orange-dim); border: 1px solid rgba(255,107,0,0.2);
-    border-radius: 10px; padding: 10px 14px; cursor: pointer;
-    font-size: 14px; font-weight: 500; color: var(--orange);
-    font-family: 'DM Sans', sans-serif; width: 100%; margin-top: 10px;
-    transition: all 0.2s;
-  }
-
-  .log-run-btn:active { transform: scale(0.98); }
-
-  /* SECTION DIVIDER */
-  .section-divider {
-    border: none; border-top: 1px solid var(--border); margin: 12px 0;
-  }
-
-  /* CALENDAR */
-  .cal-grid {
-    display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 12px;
-  }
-
+  .log-run-btn { display: flex; align-items: center; gap: 8px; background: var(--orange-dim); border: 1px solid rgba(255,107,0,0.2); border-radius: 10px; padding: 10px 14px; cursor: pointer; font-size: 14px; font-weight: 500; color: var(--orange); font-family: 'DM Sans', sans-serif; width: 100%; margin-top: 10px; transition: all 0.2s; }
+  .section-divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 12px; }
   .cal-header-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 6px; }
   .cal-header-cell { text-align: center; font-size: 11px; font-weight: 600; color: var(--text-secondary); padding: 4px 0; }
-
-  .cal-day {
-    aspect-ratio: 1; border-radius: 10px; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; cursor: pointer;
-    font-size: 12px; font-weight: 600; gap: 1px; transition: all 0.15s;
-    background: var(--surface2);
-  }
-
+  .cal-day { aspect-ratio: 1; border-radius: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; font-size: 12px; font-weight: 600; gap: 1px; transition: all 0.15s; background: var(--surface2); }
   .cal-day.today { box-shadow: 0 0 0 2px var(--orange); }
   .cal-day.selected { box-shadow: 0 0 0 2.5px white; }
-  .cal-day.outside { opacity: 0.2; }
   .cal-day.status-complete { background: var(--green); }
   .cal-day.status-partial { background: var(--orange); }
   .cal-day.status-missed { background: #333; }
@@ -234,32 +76,18 @@
   .cal-day.status-future { background: var(--surface2); color: var(--text-dim); }
   .cal-day.status-outside { background: transparent; }
   .cal-day-emoji { font-size: 8px; }
-
-  /* LEGEND */
   .legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
   .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--text-secondary); }
   .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
-
-  /* PROGRAM */
-  .week-row {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); margin: 8px 16px 0; overflow: hidden;
-  }
-
-  .week-header {
-    padding: 14px 16px; display: flex; align-items: center;
-    justify-content: space-between; cursor: pointer;
-  }
-
+  .week-row { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin: 8px 16px 0; overflow: hidden; }
+  .week-header { padding: 14px 16px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; }
   .week-num { font-size: 11px; font-weight: 700; color: var(--orange); letter-spacing: 0.06em; text-transform: uppercase; }
   .week-title { font-size: 15px; font-weight: 600; margin-top: 2px; }
   .week-km { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
   .week-chevron { color: var(--text-dim); transition: transform 0.2s; }
   .week-chevron.open { transform: rotate(180deg); }
-
   .week-days { display: none; border-top: 1px solid var(--border); }
   .week-days.open { display: block; }
-
   .day-row { padding: 10px 16px; border-bottom: 1px solid var(--border); }
   .day-row:last-child { border-bottom: none; }
   .day-row-header { display: flex; align-items: center; gap: 8px; }
@@ -267,69 +95,34 @@
   .day-session { font-size: 14px; font-weight: 500; }
   .day-details { margin-top: 6px; padding-left: 36px; }
   .day-detail { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
-
-  /* GOALS */
-  .goal-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 16px; margin: 8px 16px 0;
-  }
-
+  .goal-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin: 8px 16px 0; }
   .goal-title { font-size: 15px; font-weight: 600; }
   .goal-sub { font-size: 12px; color: var(--text-secondary); margin-top: 3px; margin-bottom: 10px; }
-  .goal-progress-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; }
-  .goal-pct { font-weight: 700; color: var(--orange); }
-
-  /* MODAL */
-  .modal-overlay {
-    position: fixed; inset: 0; background: rgba(0,0,0,0.7);
-    backdrop-filter: blur(4px); z-index: 200;
-    display: none; align-items: flex-end;
-  }
-
+  .goal-pct { font-weight: 700; color: var(--orange); font-size: 16px; }
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(4px); z-index: 200; display: none; align-items: flex-end; }
   .modal-overlay.open { display: flex; }
-
-  .modal {
-    background: var(--surface); border-radius: 20px 20px 0 0;
-    padding: 20px 20px calc(20px + var(--safe-bottom));
-    width: 100%; border-top: 1px solid var(--border);
-    animation: slideUp 0.3s ease;
-  }
-
-  @keyframes slideUp {
-    from { transform: translateY(100%); }
-    to { transform: translateY(0); }
-  }
-
+  .modal { background: var(--surface); border-radius: 20px 20px 0 0; padding: 20px 20px calc(20px + var(--safe-bottom)); width: 100%; border-top: 1px solid var(--border); animation: slideUp 0.3s ease; }
+  @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
   .modal-handle { width: 36px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 20px; }
   .modal h3 { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
-
-  .modal-input {
-    width: 100%; background: var(--surface2); border: 1px solid var(--border);
-    border-radius: 12px; padding: 14px; font-family: 'DM Sans', sans-serif;
-    font-size: 16px; color: var(--text); outline: none; margin-bottom: 12px;
-  }
-
+  .modal-input { width: 100%; background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 14px; font-family: 'DM Sans', sans-serif; font-size: 16px; color: var(--text); outline: none; margin-bottom: 12px; }
   .modal-row { display: flex; gap: 10px; margin-bottom: 12px; }
   .modal-input-sm { flex: 1; background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 14px; font-family: 'DM Sans', sans-serif; font-size: 16px; color: var(--text); outline: none; }
-
   .modal-label { font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
-
-  /* DAY DETAIL */
-  .day-detail-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 16px; margin: 12px 16px 0;
-  }
-
+  .day-detail-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin: 12px 16px 0; }
   .detail-date { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; }
   .detail-session { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
-
-  /* UTILS */
   .flex-between { display: flex; align-items: center; justify-content: space-between; }
-  .mt-8 { margin-top: 8px; }
-  .mt-12 { margin-top: 12px; }
-
-  /* iOS-style number display */
   .stat-num { font-family: 'DM Mono', monospace; }
+  /* Exercise editor styles */
+  .ex-editor-item { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border); }
+  .ex-editor-item:last-child { border-bottom: none; }
+  .ex-input { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); outline: none; }
+  .ex-input-name { flex: 1; }
+  .ex-input-sm { width: 54px; text-align: center; }
+  .ex-del-btn { background: none; border: none; color: #ef4444; font-size: 20px; cursor: pointer; padding: 0 4px; line-height: 1; flex-shrink: 0; }
+  .ex-add-btn { width: 100%; padding: 10px; border-radius: 10px; border: 1px dashed var(--border); background: none; color: var(--orange); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 10px; }
+  .icon-btn { background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-secondary); }
 </style>
 </head>
 <body>
@@ -341,59 +134,57 @@
       <h1>Today</h1>
       <div class="subtitle" id="today-date"></div>
     </div>
-
     <div class="countdown-card">
       <div>
-        <div class="race-name">🏁 BYU Backyard Ultra</div>
-        <div class="race-date">September 19, 2026 · 24 lap goal</div>
+        <div class="race-name">BYU Backyard Ultra</div>
+        <div class="race-date">September 19, 2026 - 24 lap goal</div>
       </div>
       <div>
-        <div class="days-num stat-num" id="days-to-race">—</div>
+        <div class="days-num stat-num" id="days-to-race">-</div>
         <div class="days-label">days to go</div>
       </div>
     </div>
-
     <div class="session-card" id="today-session-card">
-      <div class="session-emoji" id="today-emoji">📅</div>
+      <div class="session-emoji" id="today-emoji">?</div>
       <div>
         <div class="session-title" id="today-title">Loading...</div>
         <div class="session-week" id="today-week"></div>
-        <div class="session-milestone" id="today-milestone" style="display:none">⭐ Milestone Event</div>
+        <div class="session-milestone" id="today-milestone" style="display:none">MILESTONE EVENT</div>
       </div>
     </div>
-
-    <!-- REHAB CHECKLIST -->
+    <!-- DAILY EXERCISES -->
     <div class="card">
       <div class="flex-between" style="margin-bottom:12px">
         <div class="card-label" style="margin-bottom:0">Daily Exercises</div>
-        <div class="streak-badge" id="streak-badge">🔥 0 days</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="streak-badge" id="streak-badge">0 day streak</div>
+          <button class="icon-btn" onclick="openExerciseEditor()" title="Edit exercises">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          </button>
+        </div>
       </div>
       <div id="rehab-progress-label" class="flex-between" style="font-size:12px;color:var(--text-secondary);margin-bottom:6px">
-        <span>0/5 complete</span><span id="rehab-pct">0%</span>
+        <span id="rehab-count-label">0/5 complete</span><span id="rehab-pct">0%</span>
       </div>
       <div class="progress-bar-wrap" style="margin-bottom:12px">
         <div class="progress-bar-fill" id="rehab-progress-bar" style="width:0%"></div>
       </div>
       <div id="rehab-list"></div>
     </div>
-
     <!-- TRAINING SECTION -->
     <div class="card" id="training-card">
       <div class="card-label">Today's Training</div>
       <div id="training-details"></div>
       <div id="training-exercises"></div>
       <div id="run-log-section"></div>
-      <button class="complete-btn" id="training-complete-btn" onclick="toggleTrainingComplete()">
-        Mark Training Complete
-      </button>
+      <button class="complete-btn" id="training-complete-btn" onclick="toggleTrainingComplete()">Mark Training Complete</button>
     </div>
-
     <!-- WEEKLY PROGRESS -->
     <div class="card">
       <div class="card-label">This Week</div>
       <div class="flex-between" style="margin-bottom:4px">
         <span class="stat-num" id="weekly-km-display" style="font-size:26px;font-weight:700">0.0 km</span>
-        <span style="font-size:12px;color:var(--text-secondary);text-align:right" id="weekly-target-display">/ — km target</span>
+        <span style="font-size:12px;color:var(--text-secondary);text-align:right" id="weekly-target-display"></span>
       </div>
       <div style="font-size:13px;color:var(--text-secondary);margin-bottom:8px" id="weekly-time-display"></div>
       <div class="progress-bar-wrap">
@@ -404,15 +195,12 @@
 
   <!-- CALENDAR TAB -->
   <div class="page" id="page-calendar">
-    <div class="page-header">
-      <h1>Calendar</h1>
-    </div>
-
+    <div class="page-header"><h1>Calendar</h1></div>
     <div class="card">
       <div class="flex-between" style="margin-bottom:4px">
-        <button onclick="prevMonth()" style="background:none;border:none;color:var(--text);font-size:20px;cursor:pointer;padding:4px 8px">‹</button>
+        <button onclick="prevMonth()" style="background:none;border:none;color:var(--text);font-size:20px;cursor:pointer;padding:4px 8px">&#8249;</button>
         <div style="font-weight:600;font-size:16px" id="cal-month-label"></div>
-        <button onclick="nextMonth()" style="background:none;border:none;color:var(--text);font-size:20px;cursor:pointer;padding:4px 8px">›</button>
+        <button onclick="nextMonth()" style="background:none;border:none;color:var(--text);font-size:20px;cursor:pointer;padding:4px 8px">&#8250;</button>
       </div>
       <div class="cal-header-row">
         <div class="cal-header-cell">M</div><div class="cal-header-cell">T</div>
@@ -429,7 +217,6 @@
         <div class="legend-item"><div class="legend-dot" style="background:var(--yellow)"></div>Milestone</div>
       </div>
     </div>
-
     <div id="cal-day-detail"></div>
   </div>
 
@@ -437,7 +224,7 @@
   <div class="page" id="page-program">
     <div class="page-header">
       <h1>Program</h1>
-      <div class="subtitle">8-Week BYU Backyard Ultra Block</div>
+      <div class="subtitle">16-Week BYU Backyard Ultra Plan</div>
     </div>
     <div style="height:12px"></div>
     <div id="program-list"></div>
@@ -445,19 +232,15 @@
 
   <!-- GOALS TAB -->
   <div class="page" id="page-goals">
-    <div class="page-header">
-      <h1>Goals</h1>
-    </div>
-
+    <div class="page-header"><h1>Goals</h1></div>
     <div class="goal-card" style="margin-top:12px;background:linear-gradient(135deg,#1a0d00,#0f0f0f);border-color:rgba(255,107,0,0.2)">
-      <div class="goal-title">🏁 BYU Backyard Ultra — 24 Laps</div>
-      <div class="goal-sub">160.9 km total · September 19, 2026</div>
+      <div class="goal-title">BYU Backyard Ultra - 24 Laps</div>
+      <div class="goal-sub">160.9 km total - September 19, 2026</div>
       <div class="flex-between" style="margin-top:8px">
-        <span style="font-size:12px;color:var(--text-secondary)"><span class="stat-num" id="goals-days-label" style="font-size:22px;font-weight:700;color:var(--orange)">—</span> days away</span>
+        <span style="font-size:12px;color:var(--text-secondary)"><span class="stat-num" id="goals-days-label" style="font-size:22px;font-weight:700;color:var(--orange)">-</span> days away</span>
       </div>
     </div>
-
-    <div style="margin: 16px 16px 8px; font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-secondary)">Weekly Targets</div>
+    <div style="margin:16px 16px 8px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-secondary)">Weekly Targets</div>
     <div id="goals-weekly-list"></div>
   </div>
 
@@ -503,179 +286,265 @@
   </div>
 </div>
 
+<!-- EXERCISE EDITOR MODAL -->
+<div class="modal-overlay" id="ex-modal">
+  <div class="modal" style="max-height:80vh;overflow-y:auto">
+    <div class="modal-handle"></div>
+    <h3>Edit Daily Exercises</h3>
+    <div style="font-size:12px;color:var(--text-secondary);margin-bottom:14px">These appear on the Today checklist every day</div>
+    <div id="ex-editor-list"></div>
+    <button class="ex-add-btn" onclick="addExerciseRow()">+ Add Exercise</button>
+    <button class="complete-btn" onclick="saveExercises()" style="margin-top:16px">Save Exercises</button>
+    <button onclick="closeExerciseEditor()" style="width:100%;padding:12px;border:none;background:none;color:var(--text-secondary);font-family:'DM Sans',sans-serif;font-size:15px;cursor:pointer;margin-top:8px">Cancel</button>
+  </div>
+</div>
+
 <script>
 // =====================
 // DATA
 // =====================
-const PROGRAM_START = new Date('2026-06-01T00:00:00');
-const RACE_DATE = new Date('2026-09-19T00:00:00');
-const LAP_DISTANCE = 6.706;
+var PROGRAM_START = new Date('2026-06-01T00:00:00');
+var RACE_DATE = new Date('2026-09-19T00:00:00');
+var LAP_DISTANCE = 6.706;
 
-const REHAB_ITEMS = [
+var DEFAULT_REHAB_ITEMS = [
   { name: 'Deadbug - Alternating', desc: '12-16 reps x 3 sets' },
   { name: 'Copenhagen', desc: '12-16 reps x 3 sets' },
   { name: 'Single Leg Heel Raise', desc: '5-15 reps x 3 sets' },
   { name: 'Single Leg Deadlift', desc: '15 reps x 3 sets' },
-  { name: 'Crab Walk - Feet', desc: '15-20 reps x 3 sets' },
+  { name: 'Crab Walk - Feet', desc: '15-20 reps x 3 sets' }
 ];
 
-const STRENGTH_A = [
+function getRehabItems() {
+  var stored = localStorage.getItem('byu_exercises');
+  if (stored) {
+    try { return JSON.parse(stored); } catch(e) {}
+  }
+  return DEFAULT_REHAB_ITEMS.slice();
+}
+
+function saveRehabItems(items) {
+  localStorage.setItem('byu_exercises', JSON.stringify(items));
+}
+
+var SA = [
   { name: 'Bulgarian Split Squat', sets: 3, reps: '8 each leg' },
   { name: 'Romanian Deadlift', sets: 3, reps: '8' },
   { name: 'Step Downs', sets: 3, reps: '10 each leg' },
   { name: 'Standing Calf Raises', sets: 4, reps: '15' },
-  { name: 'Side Plank', sets: 3, reps: '30 sec' },
+  { name: 'Side Plank', sets: 3, reps: '30 sec' }
 ];
-
-const STRENGTH_A_ADV = [
+var SA_ADV = [
   { name: 'Bulgarian Split Squat', sets: 4, reps: '8' },
   { name: 'Romanian Deadlift', sets: 4, reps: '8' },
   { name: 'Step Downs', sets: 3, reps: '12' },
   { name: 'Standing Calf Raises', sets: 4, reps: '15' },
-  { name: 'Side Plank', sets: 3, reps: '45 sec' },
+  { name: 'Side Plank', sets: 3, reps: '45 sec' }
 ];
-
-const STRENGTH_B = [
+var SB = [
   { name: 'Reverse Lunge', sets: 3, reps: '10 each leg' },
   { name: 'Single-Leg RDL', sets: 3, reps: '10' },
   { name: 'Step-Ups', sets: 3, reps: '10' },
   { name: 'Tibialis Raises', sets: 3, reps: '15' },
   { name: 'Seated Calf Raises', sets: 4, reps: '20' },
-  { name: 'Copenhagen Plank', sets: 3, reps: '20 sec' },
+  { name: 'Copenhagen Plank', sets: 3, reps: '20 sec' }
 ];
-
-const STRENGTH_B_ADV = [
+var SB_ADV = [
   { name: 'Reverse Lunge', sets: 3, reps: '10 each leg' },
   { name: 'Single-Leg RDL', sets: 3, reps: '10' },
   { name: 'Step-Ups', sets: 3, reps: '10' },
   { name: 'Tibialis Raises', sets: 3, reps: '15' },
   { name: 'Seated Calf Raises', sets: 4, reps: '20' },
-  { name: 'Copenhagen Plank', sets: 3, reps: '25 sec' },
+  { name: 'Copenhagen Plank', sets: 3, reps: '25 sec' }
 ];
 
-const PLAN = [
-  { week: 1, title: 'Consolidation', goal: 'Establish rhythm and consistency', kmLow: 38, kmHigh: 45,
-    days: [
-      { dow: 1, type: 'recovery', emoji: '🚶', title: 'Recovery', details: ['30-45 min walk','Hip mobility','Calf stretching','Foam rolling'] },
-      { dow: 2, type: 'strength', emoji: '💪', title: 'Strength A', details: ['Controlled movement','Rest 90 sec between sets'], exercises: STRENGTH_A },
-      { dow: 3, type: 'run', emoji: '🏃', title: 'Easy Run 8-10 km', details: ['Conversational pace','Flat terrain preferred','Focus on smooth cadence'] },
-      { dow: 4, type: 'strength', emoji: '💪', title: 'Strength B', details: ['Single leg stability focus'], exercises: STRENGTH_B },
-      { dow: 5, type: 'run', emoji: '🏃', title: 'Easy Run 5-6 km', details: ['Recovery effort only'] },
-      { dow: 6, type: 'run', emoji: '🏃‍♂️', title: 'Long Run 22-24 km', details: ['Easy aerobic effort','Fuel every 30-40 min','No pace goal'] },
-      { dow: 7, type: 'recovery', emoji: '🚶', title: 'Recovery', details: ['Walk','Mobility','Stretching'] },
-    ]},
-  { week: 2, title: 'Night Simulation Week', goal: 'Learn how your body behaves at night', kmLow: 50, kmHigh: 65,
-    days: [
-      { dow: 1, type: 'run', emoji: '🏃', title: 'Medium Long Run 15-18 km', details: ['Easy aerobic effort','HR controlled'] },
-      { dow: 2, type: 'recovery', emoji: '🚶', title: 'Recovery', details: ['Walk','Mobility','Foam rolling'] },
-      { dow: 3, type: 'strength', emoji: '💪', title: 'Strength A', details: ['Controlled movement'], exercises: STRENGTH_A },
-      { dow: 4, type: 'run', emoji: '🏃', title: 'Easy Run 8 km', details: ['Relaxed pace'] },
-      { dow: 5, type: 'milestone', emoji: '🌙', title: '⭐ BYU Night Simulation', milestone: true, details: ['4-6 backyard laps','26.8-40.2 km total','Lap target: 47-52 min','Practice headlamp setup','Practice nutrition & hydration','Focus on mental rhythm after dark','This is NOT a fitness test'] },
-      { dow: 6, type: 'recovery', emoji: '🚶', title: 'Recovery Only', details: ['Walk only','Mobility','No running'] },
-      { dow: 7, type: 'strength', emoji: '💪', title: 'Strength B', details: ['Single leg stability focus'], exercises: STRENGTH_B },
-    ]},
-  { week: 3, title: 'Absorb the Night Simulation', goal: 'Recover and rebuild durability', kmLow: 45, kmHigh: 55,
-    days: [
-      { dow: 1, type: 'recovery', emoji: '🚶', title: 'Recovery Walk', details: ['30-45 min walk only'] },
-      { dow: 2, type: 'strength', emoji: '💪', title: 'Strength A', details: ['Increased volume'], exercises: STRENGTH_A_ADV },
-      { dow: 3, type: 'run', emoji: '🏃', title: 'Easy Run 8 km', details: ['Conversational pace'] },
-      { dow: 4, type: 'run', emoji: '🏃', title: 'Easy Run 10 km', details: ['Comfortable effort'] },
-      { dow: 5, type: 'strength', emoji: '💪', title: 'Strength B', details: ['Increased plank hold'], exercises: STRENGTH_B_ADV },
-      { dow: 6, type: 'run', emoji: '🏃', title: 'Medium Long Run 15-18 km', details: ['Easy effort'] },
-      { dow: 7, type: 'run', emoji: '🏃‍♂️', title: 'Long Run 22-26 km', details: ['Easy effort','Fuel every 30-40 min'] },
-    ]},
-  { week: 4, title: 'Durability Build', goal: 'Build durability and introduce economy work', kmLow: 52, kmHigh: 60,
-    days: [
-      { dow: 1, type: 'recovery', emoji: '🚶', title: 'Recovery', details: ['Walk and mobility'] },
-      { dow: 2, type: 'strength', emoji: '💪', title: 'Strength A', details: ['Maintain 4x8 volume'], exercises: STRENGTH_A_ADV },
-      { dow: 3, type: 'run', emoji: '🏃', title: 'Easy Run 10 km', details: ['Conversational pace'] },
-      { dow: 4, type: 'run', emoji: '⚡️', title: 'Economy Session 8 km', details: ['2 km easy warm-up','6 x 2 min comfortably hard','2 min jog recovery between each','Cool down'] },
-      { dow: 5, type: 'strength', emoji: '💪', title: 'Strength B', details: ['Maintain 25 sec Copenhagen'], exercises: STRENGTH_B_ADV },
-      { dow: 6, type: 'run', emoji: '🏃', title: 'Medium Long Run 18 km', details: ['Easy effort','Practice fueling'] },
-      { dow: 7, type: 'run', emoji: '🏃‍♂️', title: 'Long Run 26-30 km', details: ['Easy effort','Fuel every 30-40 min','Monitor knee'] },
-    ]},
-  { week: 5, title: 'Consistency Block', goal: 'Push long run distance higher', kmLow: 46, kmHigh: 50,
-    days: [
-      { dow: 1, type: 'recovery', emoji: '🚶', title: 'Recovery', details: ['Walk and mobility','Foam rolling'] },
-      { dow: 2, type: 'strength', emoji: '💪', title: 'Strength A', details: ['Maintain 4x8 volume'], exercises: STRENGTH_A_ADV },
-      { dow: 3, type: 'run', emoji: '🏃', title: 'Easy Run 10 km', details: ['Conversational pace'] },
-      { dow: 4, type: 'strength', emoji: '💪', title: 'Strength B', details: ['Single leg stability'], exercises: STRENGTH_B_ADV },
-      { dow: 5, type: 'run', emoji: '🏃', title: 'Easy Run 8 km', details: ['Easy recovery effort'] },
-      { dow: 6, type: 'run', emoji: '🏃‍♂️', title: 'Long Run 28-32 km', details: ['Easy aerobic effort','Fuel every 30-40 min','Practice lap mental focus'] },
-      { dow: 7, type: 'recovery', emoji: '🚶', title: 'Recovery', details: ['Walk and mobility'] },
-    ]},
-  { week: 6, title: 'Back-to-Back Introduction', goal: 'Simulate accumulated lap fatigue', kmLow: 55, kmHigh: 64,
-    days: [
-      { dow: 1, type: 'recovery', emoji: '🚶', title: 'Recovery', details: ['Walk and mobility'] },
-      { dow: 2, type: 'strength', emoji: '💪', title: 'Strength A', details: ['Maintain 4x8 volume'], exercises: STRENGTH_A_ADV },
-      { dow: 3, type: 'run', emoji: '🏃', title: 'Easy Run 10 km', details: ['Conversational pace'] },
-      { dow: 4, type: 'run', emoji: '🏃', title: 'Easy Run 12 km', details: ['Mid-week volume builder'] },
-      { dow: 5, type: 'strength', emoji: '💪', title: 'Strength B', details: ['Single leg stability'], exercises: STRENGTH_B_ADV },
-      { dow: 6, type: 'run', emoji: '🏃‍♂️', title: 'Long Run 30-34 km', details: ['Easy aerobic effort','Fuel every 30-40 min'] },
-      { dow: 7, type: 'run', emoji: '🏃', title: 'Medium Run 15-18 km', details: ['First back-to-back weekend','Take it easy','Simulates laps 5-8 on tired legs','Monitor knee'] },
-    ]},
-  { week: 7, title: 'Recovery Week', goal: 'Absorb training load before peak week', kmLow: 36, kmHigh: 38,
-    days: [
-      { dow: 1, type: 'recovery', emoji: '🚶', title: 'Recovery', details: ['Walk and mobility'] },
-      { dow: 2, type: 'strength', emoji: '💪', title: 'Strength A - Deload', details: ['Back to 3x8 volume'], exercises: STRENGTH_A },
-      { dow: 3, type: 'run', emoji: '🏃', title: 'Easy Run 8 km', details: ['Very relaxed'] },
-      { dow: 4, type: 'strength', emoji: '💪', title: 'Strength B - Deload', details: ['Back to 20 sec Copenhagen'], exercises: STRENGTH_B },
-      { dow: 5, type: 'run', emoji: '🏃', title: 'Easy Run 6 km', details: ['Just keep legs moving'] },
-      { dow: 6, type: 'run', emoji: '🏃‍♂️', title: 'Moderate Long Run 22-24 km', details: ['Easy effort','No pressure'] },
-      { dow: 7, type: 'recovery', emoji: '🚶', title: 'Recovery', details: ['Walk and mobility'] },
-    ]},
-  { week: 8, title: 'Peak Back-to-Back', goal: 'Biggest training stimulus of the block', kmLow: 62, kmHigh: 68,
-    days: [
-      { dow: 1, type: 'recovery', emoji: '🚶', title: 'Recovery', details: ['Walk and mobility'] },
-      { dow: 2, type: 'strength', emoji: '💪', title: 'Strength A', details: ['Maintain 4x8 volume'], exercises: STRENGTH_A_ADV },
-      { dow: 3, type: 'run', emoji: '🏃', title: 'Easy Run 10 km', details: ['Conversational pace'] },
-      { dow: 4, type: 'run', emoji: '⚡️', title: 'Economy Session 10 km', details: ['2 km easy warm-up','8 x 2 min comfortably hard','2 min jog recovery between each','Cool down'] },
-      { dow: 5, type: 'strength', emoji: '💪', title: 'Strength B', details: ['Single leg stability'], exercises: STRENGTH_B_ADV },
-      { dow: 6, type: 'run', emoji: '🏃‍♂️', title: 'Long Run 34-38 km', details: ['Easy aerobic effort','Fuel every 30-40 min','Biggest run of the block'] },
-      { dow: 7, type: 'run', emoji: '🏃', title: 'Medium Run 18-20 km', details: ['Back-to-back day','Simulates laps 6-9 on tired legs','Monitor knee closely'] },
-    ]},
+var PLAN = [
+  { week:1, title:'Consolidation', goal:'Establish rhythm and consistency', kmLow:38, kmHigh:45, days:[
+    { dow:1, type:'recovery', emoji:'Walk', title:'Recovery', details:['30-45 min walk','Hip mobility','Calf stretching','Foam rolling'] },
+    { dow:2, type:'strength', emoji:'Strength', title:'Strength A', details:['Controlled movement','Rest 90sec between sets'], exercises:SA },
+    { dow:3, type:'run', emoji:'Run', title:'Easy Run 8-10 km', details:['Conversational pace','Flat terrain preferred'] },
+    { dow:4, type:'strength', emoji:'Strength', title:'Strength B', details:['Single leg stability focus'], exercises:SB },
+    { dow:5, type:'run', emoji:'Run', title:'Easy Run 5-6 km', details:['Recovery effort only'] },
+    { dow:6, type:'run', emoji:'Run', title:'Long Run 22-24 km', details:['Easy aerobic effort','Fuel every 30-40 min'] },
+    { dow:7, type:'recovery', emoji:'Walk', title:'Recovery', details:['Walk','Mobility','Stretching'] }
+  ]},
+  { week:2, title:'Night Simulation Week', goal:'Learn how your body behaves at night', kmLow:50, kmHigh:65, days:[
+    { dow:1, type:'run', emoji:'Run', title:'Medium Long Run 15-18 km', details:['Easy aerobic effort','HR controlled','Focus on efficiency'] },
+    { dow:2, type:'recovery', emoji:'Walk', title:'Recovery', details:['Walk','Mobility','Foam rolling'] },
+    { dow:3, type:'strength', emoji:'Strength', title:'Strength A', details:['Focus on form'], exercises:SA },
+    { dow:4, type:'run', emoji:'Run', title:'Easy Run 8 km', details:['Relaxed pace'] },
+    { dow:5, type:'milestone', emoji:'Night', title:'BYU Night Simulation', details:['4-6 backyard laps','26.8-40.2 km total','Lap target: 47-52 min','Practice headlamp setup','Practice nutrition and hydration','Focus on mental rhythm after dark','This is NOT a fitness test'], milestone:true },
+    { dow:6, type:'recovery', emoji:'Walk', title:'Recovery Only', details:['Walk only','Mobility','No running'] },
+    { dow:7, type:'strength', emoji:'Strength', title:'Strength B', details:['Single leg stability'], exercises:SB }
+  ]},
+  { week:3, title:'Absorb Night Simulation', goal:'Recover and rebuild after night simulation', kmLow:45, kmHigh:55, days:[
+    { dow:1, type:'recovery', emoji:'Walk', title:'Recovery Walk', details:['30-45 min walk only'] },
+    { dow:2, type:'strength', emoji:'Strength', title:'Strength A', details:['Increase sets to 4x8'], exercises:SA_ADV },
+    { dow:3, type:'run', emoji:'Run', title:'Easy Run 8 km', details:['Conversational pace'] },
+    { dow:4, type:'strength', emoji:'Strength', title:'Strength B', details:['Increase plank hold'], exercises:SB_ADV },
+    { dow:5, type:'run', emoji:'Run', title:'Easy Run 6 km', details:['Easy recovery effort'] },
+    { dow:6, type:'run', emoji:'Run', title:'Medium Long Run 15-18 km', details:['Easy effort'] },
+    { dow:7, type:'run', emoji:'Run', title:'Long Run 22-26 km', details:['Easy effort','Fuel every 30-40 min'] }
+  ]},
+  { week:4, title:'Build 1', goal:'Peak of first build block', kmLow:56, kmHigh:62, days:[
+    { dow:1, type:'recovery', emoji:'Walk', title:'Recovery', details:['Walk and mobility'] },
+    { dow:2, type:'strength', emoji:'Strength', title:'Strength A', details:['Maintain 4x8 volume'], exercises:SA_ADV },
+    { dow:3, type:'run', emoji:'Run', title:'Easy Run 10 km', details:['Conversational pace'] },
+    { dow:4, type:'strength', emoji:'Strength', title:'Strength B', details:['Maintain volume'], exercises:SB_ADV },
+    { dow:5, type:'run', emoji:'Run', title:'Easy Run 7 km', details:['Easy effort'] },
+    { dow:6, type:'run', emoji:'Run', title:'Long Run 28-32 km', details:['Easy aerobic effort','Fuel every 30-40 min','Practice lap mental focus'] },
+    { dow:7, type:'recovery', emoji:'Walk', title:'Recovery', details:['Walk and mobility'] }
+  ]},
+  { week:5, title:'Recovery Week', goal:'Absorb the first build block', kmLow:35, kmHigh:40, days:[
+    { dow:1, type:'recovery', emoji:'Walk', title:'Recovery', details:['Walk and mobility'] },
+    { dow:2, type:'strength', emoji:'Strength', title:'Strength A - Deload', details:['Back to 3x8'], exercises:SA },
+    { dow:3, type:'run', emoji:'Run', title:'Easy Run 8 km', details:['Very relaxed pace'] },
+    { dow:4, type:'strength', emoji:'Strength', title:'Strength B - Deload', details:['Back to 20sec Copenhagen'], exercises:SB },
+    { dow:5, type:'run', emoji:'Run', title:'Easy Run 5 km', details:['Easy legs'] },
+    { dow:6, type:'run', emoji:'Run', title:'Moderate Long Run 20-22 km', details:['No pressure, easy effort'] },
+    { dow:7, type:'recovery', emoji:'Walk', title:'Recovery', details:['Walk and mobility'] }
+  ]},
+  { week:6, title:'Back-to-Back Peak', goal:'Biggest weekend of the block - simulate race fatigue', kmLow:70, kmHigh:75, milestone:true, days:[
+    { dow:1, type:'recovery', emoji:'Walk', title:'Recovery', details:['Full rest and mobility'] },
+    { dow:2, type:'strength', emoji:'Strength', title:'Strength A', details:['Maintain 4x8'], exercises:SA_ADV },
+    { dow:3, type:'run', emoji:'Run', title:'Easy Run 10 km', details:['Conversational pace'] },
+    { dow:4, type:'strength', emoji:'Strength', title:'Strength B', details:['Single leg stability'], exercises:SB_ADV },
+    { dow:5, type:'run', emoji:'Run', title:'Easy Run 6 km', details:['Keep legs fresh for weekend'] },
+    { dow:6, type:'run', emoji:'Run', title:'Long Run 35-40 km', details:['Easy aerobic effort','Fuel every 30-40 min','Biggest run of block'], milestone:true },
+    { dow:7, type:'run', emoji:'Run', title:'Medium Run 20-25 km', details:['Back-to-back day','Simulate laps on tired legs','Monitor knee closely'], milestone:true }
+  ]},
+  { week:7, title:'Recovery + Event Prep', goal:'Absorb back-to-back and prepare for July 26 event', kmLow:38, kmHigh:42, days:[
+    { dow:1, type:'recovery', emoji:'Walk', title:'Recovery', details:['Full rest'] },
+    { dow:2, type:'strength', emoji:'Strength', title:'Strength A', details:['Maintain 4x8'], exercises:SA_ADV },
+    { dow:3, type:'run', emoji:'Run', title:'Easy Run 10 km', details:['Conversational pace'] },
+    { dow:4, type:'strength', emoji:'Strength', title:'Strength B', details:['Single leg stability'], exercises:SB_ADV },
+    { dow:5, type:'run', emoji:'Run', title:'Easy Run 6 km', details:['Easy effort'] },
+    { dow:6, type:'run', emoji:'Run', title:'Medium Long Run 18 km', details:['Easy effort','Stay fresh for event week'] },
+    { dow:7, type:'recovery', emoji:'Walk', title:'Recovery', details:['Walk and mobility'] }
+  ]},
+  { week:8, title:'July 26 Event Week', goal:'34km event race day - practice pacing and fueling', kmLow:52, kmHigh:56, milestone:true, days:[
+    { dow:1, type:'recovery', emoji:'Walk', title:'Recovery', details:['Walk and mobility'] },
+    { dow:2, type:'strength', emoji:'Strength', title:'Strength A', details:['Keep it light'], exercises:SA },
+    { dow:3, type:'run', emoji:'Run', title:'Easy Run 8 km', details:['Easy effort'] },
+    { dow:4, type:'strength', emoji:'Strength', title:'Strength B - Light', details:['Light session'], exercises:SB },
+    { dow:5, type:'run', emoji:'Run', title:'Easy Run 5 km', details:['Keep legs fresh'] },
+    { dow:6, type:'milestone', emoji:'Event', title:'34km Event', details:['Race effort','Practice fueling and pacing','Note how legs feel at 20km+','Key learner for race day strategy'], milestone:true },
+    { dow:7, type:'recovery', emoji:'Walk', title:'Recovery Only', details:['Walk only','No running'] }
+  ]},
+  { week:9, title:'Absorb Event', goal:'Recover from July 26 event', kmLow:36, kmHigh:40, days:[
+    { dow:1, type:'recovery', emoji:'Walk', title:'Recovery', details:['Walk and mobility'] },
+    { dow:2, type:'strength', emoji:'Strength', title:'Strength A', details:['Back to full volume'], exercises:SA_ADV },
+    { dow:3, type:'run', emoji:'Run', title:'Easy Run 8 km', details:['Easy effort'] },
+    { dow:4, type:'strength', emoji:'Strength', title:'Strength B', details:['Single leg stability'], exercises:SB_ADV },
+    { dow:5, type:'run', emoji:'Run', title:'Easy Run 6 km', details:['Easy effort'] },
+    { dow:6, type:'run', emoji:'Run', title:'Long Run 24-26 km', details:['Easy effort','Back to normal long run'] },
+    { dow:7, type:'recovery', emoji:'Walk', title:'Recovery', details:['Walk and mobility'] }
+  ]},
+  { week:10, title:'Build 2', goal:'Second build block begins', kmLow:55, kmHigh:60, days:[
+    { dow:1, type:'recovery', emoji:'Walk', title:'Recovery', details:['Walk and mobility'] },
+    { dow:2, type:'strength', emoji:'Strength', title:'Strength A', details:['Maintain 4x8'], exercises:SA_ADV },
+    { dow:3, type:'run', emoji:'Run', title:'Easy Run 10 km', details:['Conversational pace'] },
+    { dow:4, type:'strength', emoji:'Strength', title:'Strength B', details:['Single leg stability'], exercises:SB_ADV },
+    { dow:5, type:'run', emoji:'Run', title:'Easy Run 7 km', details:['Easy effort'] },
+    { dow:6, type:'run', emoji:'Run', title:'Long Run 28-32 km', details:['Easy aerobic effort','Fuel every 30-40 min'] },
+    { dow:7, type:'recovery', emoji:'Walk', title:'Recovery', details:['Walk and mobility'] }
+  ]},
+  { week:11, title:'Build 2', goal:'Push volume higher', kmLow:62, kmHigh:68, days:[
+    { dow:1, type:'recovery', emoji:'Walk', title:'Recovery', details:['Walk and mobility'] },
+    { dow:2, type:'strength', emoji:'Strength', title:'Strength A', details:['Maintain 4x8'], exercises:SA_ADV },
+    { dow:3, type:'run', emoji:'Run', title:'Easy Run 10 km', details:['Conversational pace'] },
+    { dow:4, type:'strength', emoji:'Strength', title:'Strength B', details:['Single leg stability'], exercises:SB_ADV },
+    { dow:5, type:'run', emoji:'Run', title:'Easy Run 7 km', details:['Easy effort'] },
+    { dow:6, type:'run', emoji:'Run', title:'Long Run 32-36 km', details:['Easy aerobic effort','Fuel every 30-40 min'] },
+    { dow:7, type:'run', emoji:'Run', title:'Medium Run 12-16 km', details:['Back-to-back introduction','Easy effort'] }
+  ]},
+  { week:12, title:'Peak Week', goal:'Biggest training week - max stimulus before taper', kmLow:72, kmHigh:76, days:[
+    { dow:1, type:'recovery', emoji:'Walk', title:'Recovery', details:['Full rest and mobility'] },
+    { dow:2, type:'strength', emoji:'Strength', title:'Strength A', details:['Maintain 4x8'], exercises:SA_ADV },
+    { dow:3, type:'run', emoji:'Run', title:'Easy Run 10 km', details:['Conversational pace'] },
+    { dow:4, type:'strength', emoji:'Strength', title:'Strength B', details:['Single leg stability'], exercises:SB_ADV },
+    { dow:5, type:'run', emoji:'Run', title:'Easy Run 7 km', details:['Keep legs fresh for weekend'] },
+    { dow:6, type:'run', emoji:'Run', title:'Long Run 36-40 km', details:['Easy aerobic effort','Fuel every 30-40 min','Biggest run of the program'] },
+    { dow:7, type:'run', emoji:'Run', title:'Medium Run 18-20 km', details:['Back-to-back day','Simulate laps on tired legs','Monitor knee closely'] }
+  ]},
+  { week:13, title:'Recovery Week', goal:'Absorb peak week - protect the legs', kmLow:38, kmHigh:42, days:[
+    { dow:1, type:'recovery', emoji:'Walk', title:'Recovery', details:['Full rest'] },
+    { dow:2, type:'strength', emoji:'Strength', title:'Strength A - Deload', details:['Back to 3x8'], exercises:SA },
+    { dow:3, type:'run', emoji:'Run', title:'Easy Run 8 km', details:['Very easy effort'] },
+    { dow:4, type:'strength', emoji:'Strength', title:'Strength B - Deload', details:['Light session'], exercises:SB },
+    { dow:5, type:'run', emoji:'Run', title:'Easy Run 5 km', details:['Just keep legs moving'] },
+    { dow:6, type:'run', emoji:'Run', title:'Moderate Long Run 22-24 km', details:['Easy effort','No pressure on pace or distance'] },
+    { dow:7, type:'recovery', emoji:'Walk', title:'Recovery', details:['Walk and mobility'] }
+  ]},
+  { week:14, title:'Taper Begins', goal:'Start reducing volume while maintaining intensity', kmLow:28, kmHigh:32, days:[
+    { dow:1, type:'recovery', emoji:'Walk', title:'Recovery', details:['Walk and mobility'] },
+    { dow:2, type:'strength', emoji:'Strength', title:'Strength A - Light', details:['3x6 reduced volume'], exercises:SA },
+    { dow:3, type:'run', emoji:'Run', title:'Easy Run 8 km', details:['Comfortable effort'] },
+    { dow:4, type:'strength', emoji:'Strength', title:'Strength B - Light', details:['3x6 reduced volume'], exercises:SB },
+    { dow:5, type:'run', emoji:'Run', title:'Easy Run 5 km', details:['Easy legs'] },
+    { dow:6, type:'run', emoji:'Run', title:'Long Run 18-20 km', details:['Easy effort','No pushing'] },
+    { dow:7, type:'recovery', emoji:'Walk', title:'Recovery', details:['Walk and mobility'] }
+  ]},
+  { week:15, title:'Taper Week 2', goal:'Sharp taper - legs should feel fresh', kmLow:18, kmHigh:22, days:[
+    { dow:1, type:'recovery', emoji:'Walk', title:'Recovery', details:['Walk only'] },
+    { dow:2, type:'strength', emoji:'Strength', title:'Strength A - Minimal', details:['2x6 maintenance only'], exercises:SA },
+    { dow:3, type:'run', emoji:'Run', title:'Easy Run 6 km', details:['Very easy','Just stay loose'] },
+    { dow:4, type:'recovery', emoji:'Walk', title:'Rest', details:['Full rest','Mobility if needed'] },
+    { dow:5, type:'run', emoji:'Run', title:'Easy Run 5 km', details:['Easy effort'] },
+    { dow:6, type:'run', emoji:'Run', title:'Easy Run 10 km', details:['Keep legs moving','No pressure at all'] },
+    { dow:7, type:'recovery', emoji:'Walk', title:'Rest', details:['Full rest','Prep gear and nutrition'] }
+  ]},
+  { week:16, title:'Race Week', goal:'BYU Backyard Ultra - 24 lap goal!', kmLow:5, kmHigh:160, milestone:true, days:[
+    { dow:1, type:'run', emoji:'Run', title:'Easy Run 5 km', details:['Very easy','Just stay loose'] },
+    { dow:2, type:'run', emoji:'Run', title:'Easy Run 4 km', details:['Short and easy'] },
+    { dow:3, type:'run', emoji:'Run', title:'Easy Run 4 km', details:['Last easy run','Stay off feet after this'] },
+    { dow:4, type:'recovery', emoji:'Walk', title:'Rest', details:['Full rest','Eat well','Hydrate','Prepare kit'] },
+    { dow:5, type:'recovery', emoji:'Walk', title:'Rest', details:['Full rest','Mental prep','Sleep early'] },
+    { dow:6, type:'milestone', emoji:'RACE', title:'BYU BACKYARD ULTRA - RACE DAY', details:['24 lap goal = 160.9 km','Lap target: 50-55 min','Fuel every lap','Stay in the moment - one lap at a time'], milestone:true },
+    { dow:7, type:'recovery', emoji:'Walk', title:'Recovery', details:['You did it!','Rest','Celebrate'] }
+  ]}
 ];
 
 // =====================
 // STATE
 // =====================
 function getState() {
-  return JSON.parse(localStorage.getItem('byu_state') || '{}');
+  try { return JSON.parse(localStorage.getItem('byu_state') || '{}'); } catch(e) { return {}; }
 }
-
 function saveState(state) {
   localStorage.setItem('byu_state', JSON.stringify(state));
 }
-
 function todayKey() {
-  const d = new Date();
-  return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+  var d = new Date();
+  return d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
 }
-
 function dateKey(date) {
-  return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+  return date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
 }
 
 // =====================
 // PROGRAM HELPERS
 // =====================
 function getWeekAndDay(date) {
-  const start = new Date(PROGRAM_START);
-  start.setHours(0,0,0,0);
-  const d = new Date(date);
-  d.setHours(0,0,0,0);
-  const diffDays = Math.floor((d - start) / 86400000);
-  if (diffDays < 0 || diffDays >= 56) return null;
-  const weekIdx = Math.floor(diffDays / 7);
-  const dayOfWeek = d.getDay() === 0 ? 7 : d.getDay(); // 1=Mon...7=Sun
-  const week = PLAN[weekIdx];
-  const day = week.days.find(d => d.dow === dayOfWeek);
-  return { week, day };
+  var start = new Date(PROGRAM_START); start.setHours(0,0,0,0);
+  var d = new Date(date); d.setHours(0,0,0,0);
+  var diffDays = Math.floor((d - start) / 86400000);
+  if (diffDays < 0 || diffDays >= 112) return null;
+  var weekIdx = Math.floor(diffDays / 7);
+  var raw = d.getDay();
+  var dayOfWeek = raw === 0 ? 7 : raw;
+  var week = PLAN[weekIdx];
+  if (!week) return null;
+  var day = null;
+  for (var i = 0; i < week.days.length; i++) {
+    if (week.days[i].dow === dayOfWeek) { day = week.days[i]; break; }
+  }
+  return { week: week, day: day };
 }
 
 function daysToRace() {
-  const today = new Date(); today.setHours(0,0,0,0);
-  const race = new Date(RACE_DATE); race.setHours(0,0,0,0);
+  var today = new Date(); today.setHours(0,0,0,0);
+  var race = new Date(RACE_DATE); race.setHours(0,0,0,0);
   return Math.ceil((race - today) / 86400000);
 }
 
@@ -683,8 +552,10 @@ function daysToRace() {
 // TAB SWITCHING
 // =====================
 function switchTab(tab) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  var pages = document.querySelectorAll('.page');
+  for (var i = 0; i < pages.length; i++) pages[i].classList.remove('active');
+  var btns = document.querySelectorAll('.tab-btn');
+  for (var i = 0; i < btns.length; i++) btns[i].classList.remove('active');
   document.getElementById('page-' + tab).classList.add('active');
   document.getElementById('tab-' + tab).classList.add('active');
   if (tab === 'calendar') renderCalendar();
@@ -696,23 +567,21 @@ function switchTab(tab) {
 // TODAY PAGE
 // =====================
 function initToday() {
-  const now = new Date();
+  var now = new Date();
   document.getElementById('today-date').textContent = now.toLocaleDateString('en-AU', { weekday:'long', day:'numeric', month:'long' });
   document.getElementById('days-to-race').textContent = daysToRace();
   document.getElementById('goals-days-label').textContent = daysToRace();
-
-  const plan = getWeekAndDay(now);
+  var plan = getWeekAndDay(now);
   if (plan && plan.day) {
     document.getElementById('today-emoji').textContent = plan.day.emoji;
     document.getElementById('today-title').textContent = plan.day.title;
-    document.getElementById('today-week').textContent = `Week ${plan.week.week} - ${plan.week.title}`;
+    document.getElementById('today-week').textContent = 'Week ' + plan.week.week + ' - ' + plan.week.title;
     if (plan.day.milestone) document.getElementById('today-milestone').style.display = 'flex';
   } else {
-    document.getElementById('today-emoji').textContent = '📅';
+    document.getElementById('today-emoji').textContent = '?';
     document.getElementById('today-title').textContent = 'Outside program window';
-    document.getElementById('today-week').textContent = 'Rest & recovery';
+    document.getElementById('today-week').textContent = 'Rest and recovery';
   }
-
   renderRehabList();
   renderTrainingSection();
   renderWeeklyProgress();
@@ -720,32 +589,33 @@ function initToday() {
 }
 
 function renderRehabList() {
-  const state = getState();
-  const key = todayKey();
-  const checked = state[key]?.rehab || {};
-  const list = document.getElementById('rehab-list');
-  const done = REHAB_ITEMS.filter((_, i) => checked[i]).length;
-
-  document.getElementById('rehab-progress-label').innerHTML =
-    `<span>${done}/${REHAB_ITEMS.length} complete</span><span id="rehab-pct">${Math.round(done/REHAB_ITEMS.length*100)}%</span>`;
-  document.getElementById('rehab-progress-bar').style.width = (done/REHAB_ITEMS.length*100) + '%';
-
-  list.innerHTML = REHAB_ITEMS.map((item, i) => `
-    <div class="check-item ${checked[i] ? 'checked' : ''}" onclick="toggleRehab(${i})">
-      <div class="check-circle">
-        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-      </div>
-      <div class="check-text">
-        <div class="check-name">${item.name}</div>
-        <div class="check-desc">${item.desc}</div>
-      </div>
-    </div>
-  `).join('');
+  var REHAB_ITEMS = getRehabItems();
+  var state = getState();
+  var key = todayKey();
+  var checked = (state[key] && state[key].rehab) || {};
+  var list = document.getElementById('rehab-list');
+  var done = 0;
+  for (var i = 0; i < REHAB_ITEMS.length; i++) { if (checked[i]) done++; }
+  var total = REHAB_ITEMS.length;
+  var pct = total > 0 ? Math.round(done / total * 100) : 0;
+  document.getElementById('rehab-count-label').textContent = done + '/' + total + ' complete';
+  document.getElementById('rehab-pct').textContent = pct + '%';
+  document.getElementById('rehab-progress-bar').style.width = pct + '%';
+  var html = '';
+  for (var i = 0; i < REHAB_ITEMS.length; i++) {
+    var item = REHAB_ITEMS[i];
+    var isChecked = checked[i] ? true : false;
+    html += '<div class="check-item ' + (isChecked ? 'checked' : '') + '" onclick="toggleRehab(' + i + ')">' +
+      '<div class="check-circle"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>' +
+      '<div class="check-text"><div class="check-name">' + item.name + '</div><div class="check-desc">' + item.desc + '</div></div>' +
+      '</div>';
+  }
+  list.innerHTML = html;
 }
 
 function toggleRehab(idx) {
-  const state = getState();
-  const key = todayKey();
+  var state = getState();
+  var key = todayKey();
   if (!state[key]) state[key] = {};
   if (!state[key].rehab) state[key].rehab = {};
   state[key].rehab[idx] = !state[key].rehab[idx];
@@ -755,64 +625,59 @@ function toggleRehab(idx) {
 }
 
 function renderTrainingSection() {
-  const plan = getWeekAndDay(new Date());
-  const state = getState();
-  const key = todayKey();
-  const dayState = state[key] || {};
-
-  const detailsDiv = document.getElementById('training-details');
-  const exercisesDiv = document.getElementById('training-exercises');
-  const runSection = document.getElementById('run-log-section');
-  const btn = document.getElementById('training-complete-btn');
+  var plan = getWeekAndDay(new Date());
+  var state = getState();
+  var key = todayKey();
+  var dayState = state[key] || {};
+  var detailsDiv = document.getElementById('training-details');
+  var exercisesDiv = document.getElementById('training-exercises');
+  var runSection = document.getElementById('run-log-section');
+  var btn = document.getElementById('training-complete-btn');
 
   if (!plan || !plan.day) {
-    detailsDiv.innerHTML = '<div style="color:var(--text-secondary);font-size:14px">No training planned today - rest up!</div>';
+    detailsDiv.innerHTML = '<div style="color:var(--text-secondary);font-size:14px">No training planned today.</div>';
     exercisesDiv.innerHTML = '';
     runSection.innerHTML = '';
     return;
   }
 
-  const day = plan.day;
+  var day = plan.day;
+  var dHtml = '';
+  for (var i = 0; i < day.details.length; i++) {
+    dHtml += '<div style="display:flex;gap:8px;padding:5px 0;font-size:14px;border-bottom:1px solid var(--border)">' +
+      '<span style="color:var(--orange)">&#8250;</span><span>' + day.details[i] + '</span></div>';
+  }
+  detailsDiv.innerHTML = dHtml;
 
-  // Details
-  detailsDiv.innerHTML = day.details.map(d =>
-    `<div style="display:flex;gap:8px;padding:5px 0;font-size:14px;border-bottom:1px solid var(--border)">
-      <span style="color:var(--orange)">›</span><span>${d}</span>
-    </div>`
-  ).join('');
-
-  // Strength exercises
   if (day.exercises && day.exercises.length) {
-    const exChecked = dayState.exercises || {};
-    exercisesDiv.innerHTML = '<hr class="section-divider">' + day.exercises.map((ex, i) => `
-      <div class="check-item ${exChecked[i] ? 'checked' : ''}" onclick="toggleExercise(${i})">
-        <div class="check-circle">
-          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-        </div>
-        <div class="check-text">
-          <div class="check-name">${ex.name}</div>
-          <div class="check-desc">${ex.sets} sets x ${ex.reps}</div>
-        </div>
-      </div>
-    `).join('');
+    var exChecked = dayState.exercises || {};
+    var eHtml = '<hr class="section-divider">';
+    for (var i = 0; i < day.exercises.length; i++) {
+      var ex = day.exercises[i];
+      var isChk = exChecked[i] ? true : false;
+      eHtml += '<div class="check-item ' + (isChk ? 'checked' : '') + '" onclick="toggleExercise(' + i + ')">' +
+        '<div class="check-circle"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>' +
+        '<div class="check-text"><div class="check-name">' + ex.name + '</div><div class="check-desc">' + ex.sets + ' sets x ' + ex.reps + '</div></div>' +
+        '</div>';
+    }
+    exercisesDiv.innerHTML = eHtml;
   } else {
     exercisesDiv.innerHTML = '';
   }
 
-  // Run log
-  if (['run', 'milestone'].includes(day.type)) {
-    const km = dayState.runKm;
-    runSection.innerHTML = `<hr class="section-divider">
-      <button class="log-run-btn" onclick="openRunModal()">
-        ${km ? '✅' : '➕'} ${km ? km.toFixed(1) + ' km logged' : 'Log run distance'}
-      </button>`;
+  if (day.type === 'run' || day.type === 'milestone' || day.type === 'strength' || day.type === 'recovery') {
+    var km = dayState.runKm;
+    runSection.innerHTML = '<hr class="section-divider">' +
+      '<div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:8px">Run Log</div>' +
+      '<button class="log-run-btn" onclick="openRunModal()">' +
+      (km ? ('&#10003; ' + parseFloat(km).toFixed(1) + ' km logged - tap to edit') : '+ Log a run') +
+      '</button>';
   } else {
     runSection.innerHTML = '';
   }
 
-  // Complete button
   if (dayState.trainingDone) {
-    btn.textContent = '✓ Training Complete';
+    btn.textContent = 'Training Complete';
     btn.classList.add('done');
   } else {
     btn.textContent = 'Mark Training Complete';
@@ -821,8 +686,8 @@ function renderTrainingSection() {
 }
 
 function toggleExercise(idx) {
-  const state = getState();
-  const key = todayKey();
+  var state = getState();
+  var key = todayKey();
   if (!state[key]) state[key] = {};
   if (!state[key].exercises) state[key].exercises = {};
   state[key].exercises[idx] = !state[key].exercises[idx];
@@ -831,8 +696,8 @@ function toggleExercise(idx) {
 }
 
 function toggleTrainingComplete() {
-  const state = getState();
-  const key = todayKey();
+  var state = getState();
+  var key = todayKey();
   if (!state[key]) state[key] = {};
   state[key].trainingDone = !state[key].trainingDone;
   saveState(state);
@@ -840,68 +705,124 @@ function toggleTrainingComplete() {
 }
 
 function renderWeeklyProgress() {
-  const plan = getWeekAndDay(new Date());
-  const state = getState();
-  const now = new Date();
-  const day = now.getDay() || 7;
-  const monday = new Date(now);
+  var plan = getWeekAndDay(new Date());
+  var state = getState();
+  var now = new Date();
+  var day = now.getDay() || 7;
+  var monday = new Date(now);
   monday.setDate(now.getDate() - day + 1);
   monday.setHours(0,0,0,0);
-
-  let totalKm = 0;
-  let totalMin = 0;
-  for (let i = 0; i < 7; i++) {
-    const d = new Date(monday);
+  var totalKm = 0, totalMin = 0;
+  for (var i = 0; i < 7; i++) {
+    var d = new Date(monday);
     d.setDate(monday.getDate() + i);
-    const k = dateKey(d);
-    totalKm += (state[k] && state[k].runKm) || 0;
-    totalMin += (state[k] && state[k].runMin) || 0;
+    var k = dateKey(d);
+    var ds = state[k] || {};
+    totalKm += ds.runKm || 0;
+    totalMin += ds.runMin || 0;
   }
-
   document.getElementById('weekly-km-display').textContent = totalKm.toFixed(1) + ' km';
-  if (plan) {
-    const target = plan.week.kmHigh;
+  if (plan && plan.week) {
     document.getElementById('weekly-target-display').textContent = '/ ' + plan.week.kmLow + '-' + plan.week.kmHigh + ' km target';
-    document.getElementById('weekly-progress-bar').style.width = Math.min(totalKm / target * 100, 100) + '%';
-  } else {
-    document.getElementById('weekly-target-display').textContent = '';
-    document.getElementById('weekly-progress-bar').style.width = '0%';
+    document.getElementById('weekly-progress-bar').style.width = Math.min(totalKm / plan.week.kmHigh * 100, 100) + '%';
   }
-
   if (totalMin > 0) {
-    const h = Math.floor(totalMin / 60);
-    const m = Math.round(totalMin % 60);
-    const timeStr = h > 0 ? h + 'h ' + m + 'm on feet' : m + 'm on feet';
-    document.getElementById('weekly-time-display').textContent = timeStr;
+    var h = Math.floor(totalMin / 60);
+    var m = Math.round(totalMin % 60);
+    document.getElementById('weekly-time-display').textContent = (h > 0 ? h + 'h ' + m + 'm' : m + 'm') + ' on feet';
   } else {
     document.getElementById('weekly-time-display').textContent = '';
   }
 }
 
 function renderStreak() {
-  const state = getState();
-  let streak = 0;
-  const d = new Date();
+  var REHAB_ITEMS = getRehabItems();
+  var state = getState();
+  var streak = 0;
+  var d = new Date();
+  d.setHours(0,0,0,0);
   while (true) {
-    const k = dateKey(d);
-    const dayState = state[k];
-    if (!dayState) break;
-    const rehabDone = REHAB_ITEMS.every((_, i) => dayState.rehab && dayState.rehab[i]);
-    if (!rehabDone) break;
+    var k = dateKey(d);
+    var ds = state[k];
+    if (!ds) break;
+    var allDone = true;
+    for (var i = 0; i < REHAB_ITEMS.length; i++) {
+      if (!ds.rehab || !ds.rehab[i]) { allDone = false; break; }
+    }
+    if (!allDone) break;
     streak++;
     d.setDate(d.getDate() - 1);
   }
-  document.getElementById('streak-badge').textContent = `fire ${streak} day${streak !== 1 ? 's' : ''}`;
+  document.getElementById('streak-badge').textContent = streak + ' day streak';
+}
+
+// =====================
+// EXERCISE EDITOR
+// =====================
+var editingExercises = [];
+
+function openExerciseEditor() {
+  editingExercises = JSON.parse(JSON.stringify(getRehabItems()));
+  renderExerciseEditor();
+  document.getElementById('ex-modal').classList.add('open');
+}
+
+function closeExerciseEditor() {
+  document.getElementById('ex-modal').classList.remove('open');
+}
+
+function renderExerciseEditor() {
+  var html = '';
+  for (var i = 0; i < editingExercises.length; i++) {
+    var ex = editingExercises[i];
+    html += '<div class="ex-editor-item" id="ex-row-' + i + '">' +
+      '<div style="flex:1;display:flex;flex-direction:column;gap:4px">' +
+      '<input class="ex-input ex-input-name" type="text" placeholder="Exercise name" value="' + (ex.name || '') + '" onchange="updateExField(' + i + ',\'name\',this.value)">' +
+      '<input class="ex-input" type="text" placeholder="e.g. 3 sets x 10 reps" value="' + (ex.desc || '') + '" onchange="updateExField(' + i + ',\'desc\',this.value)" style="font-size:12px">' +
+      '</div>' +
+      '<button class="ex-del-btn" onclick="deleteExRow(' + i + ')">&#215;</button>' +
+      '</div>';
+  }
+  document.getElementById('ex-editor-list').innerHTML = html;
+}
+
+function updateExField(idx, field, val) {
+  editingExercises[idx][field] = val;
+}
+
+function addExerciseRow() {
+  editingExercises.push({ name: '', desc: '' });
+  renderExerciseEditor();
+}
+
+function deleteExRow(idx) {
+  editingExercises.splice(idx, 1);
+  renderExerciseEditor();
+}
+
+function saveExercises() {
+  var cleaned = [];
+  for (var i = 0; i < editingExercises.length; i++) {
+    if (editingExercises[i].name && editingExercises[i].name.trim()) {
+      cleaned.push({ name: editingExercises[i].name.trim(), desc: editingExercises[i].desc || '' });
+    }
+  }
+  saveRehabItems(cleaned);
+  closeExerciseEditor();
+  renderRehabList();
+  renderStreak();
 }
 
 // =====================
 // RUN MODAL
 // =====================
+var activeRunKey = null;
+
 function openRunModal() {
   activeRunKey = todayKey();
-  const state = getState();
-  const km = state[activeRunKey] && state[activeRunKey].runKm;
-  const min = state[activeRunKey] && state[activeRunKey].runMin;
+  var state = getState();
+  var km = state[activeRunKey] && state[activeRunKey].runKm;
+  var min = state[activeRunKey] && state[activeRunKey].runMin;
   document.getElementById('run-km').value = km || '';
   document.getElementById('run-min').value = min || '';
   document.getElementById('run-pace-display').textContent = '';
@@ -913,37 +834,40 @@ function closeRunModal() {
 }
 
 function updatePaceDisplay() {
-  const km = parseFloat(document.getElementById('run-km').value);
-  const min = parseFloat(document.getElementById('run-min').value);
-  const el = document.getElementById('run-pace-display');
+  var km = parseFloat(document.getElementById('run-km').value);
+  var min = parseFloat(document.getElementById('run-min').value);
+  var el = document.getElementById('run-pace-display');
   if (km > 0 && min > 0) {
-    const paceMin = Math.floor(min / km);
-    const paceSec = Math.round(((min / km) - paceMin) * 60);
-    el.textContent = `Pace: ${paceMin}:${String(paceSec).padStart(2,'0')} /km`;
+    var paceMin = Math.floor(min / km);
+    var paceSec = Math.round(((min / km) - paceMin) * 60);
+    el.textContent = 'Pace: ' + paceMin + ':' + String(paceSec).padStart(2,'0') + ' /km';
   } else {
     el.textContent = '';
   }
 }
 
+document.getElementById('run-km').addEventListener('input', updatePaceDisplay);
+document.getElementById('run-min').addEventListener('input', updatePaceDisplay);
+
 function saveRun() {
-  const km = parseFloat(document.getElementById('run-km').value);
-  const min = parseFloat(document.getElementById('run-min').value);
+  var km = parseFloat(document.getElementById('run-km').value);
+  var min = parseFloat(document.getElementById('run-min').value);
   if (!km) return;
-  const state = getState();
-  const key = activeRunKey || todayKey();
+  var state = getState();
+  var key = activeRunKey || todayKey();
   if (!state[key]) state[key] = {};
   state[key].runKm = km;
   state[key].runMin = min || null;
   state[key].trainingDone = true;
   saveState(state);
   closeRunModal();
-  // Refresh whichever view is active
   if (key === todayKey()) {
     renderTrainingSection();
     renderWeeklyProgress();
   } else if (calDetailDate) {
     renderCalDayDetail(calDetailDate);
     renderCalendar();
+    renderWeeklyProgress();
   }
   activeRunKey = null;
 }
@@ -951,73 +875,73 @@ function saveRun() {
 // =====================
 // CALENDAR
 // =====================
-let calMonth = new Date().getMonth();
-let calYear = new Date().getFullYear();
-let selectedCalDate = null;
+var calMonth = new Date().getMonth();
+var calYear = new Date().getFullYear();
+var selectedCalDate = null;
+var calDetailDate = null;
 
 function prevMonth() { calMonth--; if (calMonth < 0) { calMonth = 11; calYear--; } renderCalendar(); }
 function nextMonth() { calMonth++; if (calMonth > 11) { calMonth = 0; calYear++; } renderCalendar(); }
 
 function renderCalendar() {
-  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  document.getElementById('cal-month-label').textContent = `${monthNames[calMonth]} ${calYear}`;
-
-  const firstDay = new Date(calYear, calMonth, 1);
-  const lastDay = new Date(calYear, calMonth + 1, 0);
-  const startDow = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1; // Mon=0
-
-  const state = getState();
-  const today = new Date(); today.setHours(0,0,0,0);
-  const grid = document.getElementById('cal-grid');
+  var MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('cal-month-label').textContent = MONTH_NAMES[calMonth] + ' ' + calYear;
+  var firstDay = new Date(calYear, calMonth, 1);
+  var lastDay = new Date(calYear, calMonth + 1, 0);
+  var startDow = firstDay.getDay() === 0 ? 6 : firstDay.getDay() - 1;
+  var state = getState();
+  var today = new Date(); today.setHours(0,0,0,0);
+  var grid = document.getElementById('cal-grid');
   grid.innerHTML = '';
 
-  // Empty cells before first day
-  for (let i = 0; i < startDow; i++) {
-    const empty = document.createElement('div');
+  for (var i = 0; i < startDow; i++) {
+    var empty = document.createElement('div');
     empty.className = 'cal-day status-outside';
     grid.appendChild(empty);
   }
 
-  for (let d = 1; d <= lastDay.getDate(); d++) {
-    const date = new Date(calYear, calMonth, d);
+  for (var d = 1; d <= lastDay.getDate(); d++) {
+    var date = new Date(calYear, calMonth, d);
     date.setHours(0,0,0,0);
-    const key = dateKey(date);
-    const dayState = state[key] || {};
-    const plan = getWeekAndDay(date);
-    const isToday = date.getTime() === today.getTime();
-    const isSelected = selectedCalDate && date.getTime() === selectedCalDate.getTime();
-    const isFuture = date > today;
-
-    let status = 'status-outside';
-    let emoji = '';
+    var key = dateKey(date);
+    var ds = state[key] || {};
+    var plan = getWeekAndDay(date);
+    var isToday = date.getTime() === today.getTime();
+    var isSelected = selectedCalDate && date.getTime() === selectedCalDate.getTime();
+    var isFuture = date > today;
+    var REHAB_ITEMS = getRehabItems();
+    var status = 'status-outside';
+    var label = '';
 
     if (plan && plan.day) {
-      emoji = plan.day.emoji;
+      label = plan.day.type === 'run' ? 'Run' : (plan.day.type === 'strength' ? 'Str' : (plan.day.type === 'milestone' ? '*' : ''));
       if (plan.day.milestone) {
         status = 'status-milestone';
       } else if (isFuture) {
         status = 'status-future';
       } else if (plan.day.type === 'recovery') {
-        const rehabDone = REHAB_ITEMS.every((_, i) => dayState.rehab && dayState.rehab[i]);
-        status = rehabDone ? 'status-complete' : 'status-recovery';
+        var rDone = true;
+        for (var ri = 0; ri < REHAB_ITEMS.length; ri++) { if (!ds.rehab || !ds.rehab[ri]) { rDone = false; break; } }
+        status = rDone ? 'status-complete' : 'status-recovery';
       } else {
-        const rehabDone = REHAB_ITEMS.every((_, i) => dayState.rehab && dayState.rehab[i]);
-        const trainDone = dayState.trainingDone;
-        if (rehabDone && trainDone) status = 'status-complete';
-        else if (rehabDone || trainDone) status = 'status-partial';
+        var rDone = true;
+        for (var ri = 0; ri < REHAB_ITEMS.length; ri++) { if (!ds.rehab || !ds.rehab[ri]) { rDone = false; break; } }
+        var tDone = ds.trainingDone ? true : false;
+        if (rDone && tDone) status = 'status-complete';
+        else if (rDone || tDone) status = 'status-partial';
         else status = 'status-missed';
       }
     } else if (isFuture) {
       status = 'status-future';
     }
 
-    const cell = document.createElement('div');
-    cell.className = `cal-day ${status}${isToday ? ' today' : ''}${isSelected ? ' selected' : ''}`;
-    cell.innerHTML = `<span>${d}</span>${emoji ? `<span class="cal-day-emoji">${emoji}</span>` : ''}`;
-    cell.onclick = () => selectCalDay(date);
+    var cell = document.createElement('div');
+    var cls = 'cal-day ' + status + (isToday ? ' today' : '') + (isSelected ? ' selected' : '');
+    cell.className = cls;
+    cell.innerHTML = '<span>' + d + '</span>' + (label ? '<span class="cal-day-emoji">' + label + '</span>' : '');
+    (function(dt) { cell.onclick = function() { selectCalDay(dt); }; })(new Date(date));
     grid.appendChild(cell);
   }
-
   if (selectedCalDate) renderCalDayDetail(selectedCalDate);
 }
 
@@ -1032,139 +956,94 @@ function selectCalDay(date) {
   renderCalendar();
 }
 
-// Track which date is open in calendar detail for interactive updates
-let calDetailDate = null;
-
 function renderCalDayDetail(date) {
   calDetailDate = date;
-  const plan = getWeekAndDay(date);
-  const state = getState();
-  const key = dateKey(date);
-  const dayState = state[key] || {};
-  const el = document.getElementById('cal-day-detail');
-  const today = new Date(); today.setHours(0,0,0,0);
-  const isPast = date <= today;
+  var plan = getWeekAndDay(date);
+  var state = getState();
+  var key = dateKey(date);
+  var ds = state[key] || {};
+  var el = document.getElementById('cal-day-detail');
+  var today = new Date(); today.setHours(0,0,0,0);
+  var isPast = date <= today;
+  var REHAB_ITEMS = getRehabItems();
 
   if (!plan || !plan.day) {
-    el.innerHTML = `<div class="day-detail-card"><div class="detail-date">${date.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long'})}</div><div style="color:var(--text-secondary);font-size:14px">Outside the 8-week program</div></div>`;
+    el.innerHTML = '<div class="day-detail-card"><div class="detail-date">' +
+      date.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long'}) +
+      '</div><div style="color:var(--text-secondary);font-size:14px">Outside the 16-week program</div></div>';
     return;
   }
 
-  const rehabChecked = dayState.rehab || {};
-  const exChecked = dayState.exercises || {};
-  const km = dayState.runKm;
-  const isRunDay = ['run','milestone'].includes(plan.day.type);
-
-  // Build interactive checklist for past days, read-only summary for future
-  let rehabHTML = '';
-  let exerciseHTML = '';
-  let runHTML = '';
-  let completeHTML = '';
+  var rehabChecked = ds.rehab || {};
+  var exChecked = ds.exercises || {};
+  var isRunDay = plan.day.type === 'run' || plan.day.type === 'milestone';
+  var rHtml = '', eHtml = '', runHtml = '', completeHtml = '';
 
   if (isPast) {
-    // Interactive daily exercises
-    rehabHTML = `
-      <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:8px">Daily Exercises</div>
-      ${REHAB_ITEMS.map((item, i) => `
-        <div class="check-item ${rehabChecked[i] ? 'checked' : ''}" onclick="calToggleRehab('${key}',${i})">
-          <div class="check-circle">
-            <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <div class="check-text">
-            <div class="check-name">${item.name}</div>
-            <div class="check-desc">${item.desc}</div>
-          </div>
-        </div>
-      `).join('')}`;
+    rHtml = '<div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:8px">Daily Exercises</div>';
+    for (var i = 0; i < REHAB_ITEMS.length; i++) {
+      var isChk = rehabChecked[i] ? true : false;
+      rHtml += '<div class="check-item ' + (isChk ? 'checked' : '') + '" onclick="calToggleRehab(\'' + key + '\',' + i + ')">' +
+        '<div class="check-circle"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>' +
+        '<div class="check-text"><div class="check-name">' + REHAB_ITEMS[i].name + '</div><div class="check-desc">' + REHAB_ITEMS[i].desc + '</div></div>' +
+        '</div>';
+    }
 
-    // Interactive strength exercises
     if (plan.day.exercises && plan.day.exercises.length) {
-      exerciseHTML = `
-        <hr class="section-divider">
-        <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:8px">Strength Exercises</div>
-        ${plan.day.exercises.map((ex, i) => `
-          <div class="check-item ${exChecked[i] ? 'checked' : ''}" onclick="calToggleExercise('${key}',${i})">
-            <div class="check-circle">
-              <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-            </div>
-            <div class="check-text">
-              <div class="check-name">${ex.name}</div>
-              <div class="check-desc">${ex.sets} sets x ${ex.reps}</div>
-            </div>
-          </div>
-        `).join('')}`;
+      eHtml = '<hr class="section-divider"><div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:8px">Strength Exercises</div>';
+      for (var i = 0; i < plan.day.exercises.length; i++) {
+        var ex = plan.day.exercises[i];
+        var isChk = exChecked[i] ? true : false;
+        eHtml += '<div class="check-item ' + (isChk ? 'checked' : '') + '" onclick="calToggleExercise(\'' + key + '\',' + i + ')">' +
+          '<div class="check-circle"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>' +
+          '<div class="check-text"><div class="check-name">' + ex.name + '</div><div class="check-desc">' + ex.sets + ' sets x ' + ex.reps + '</div></div>' +
+          '</div>';
+      }
     }
 
-    // Inline run fields for past run days
-    if (isRunDay) {
-      const existingKm = dayState.runKm || '';
-      const existingMin = dayState.runMin || '';
-      runHTML = `
-        <hr class="section-divider">
-        <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:10px">Run Log</div>
-        <div style="display:flex;gap:10px;align-items:flex-end">
-          <div style="flex:1">
-            <div style="font-size:11px;color:var(--text-secondary);margin-bottom:4px">Distance</div>
-            <div style="display:flex;align-items:center;gap:6px">
-              <input type="number" step="0.1" inputmode="decimal" placeholder="0.0"
-                value="${existingKm}"
-                id="cal-km-${key}"
-                onchange="calSaveRun('${key}')"
-                style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px;font-size:16px;color:var(--text);font-family:inherit;outline:none">
-              <span style="color:var(--text-secondary);font-size:13px;white-space:nowrap">km</span>
-            </div>
-          </div>
-          <div style="flex:1">
-            <div style="font-size:11px;color:var(--text-secondary);margin-bottom:4px">Duration</div>
-            <div style="display:flex;align-items:center;gap:6px">
-              <input type="number" inputmode="numeric" placeholder="0"
-                value="${existingMin}"
-                id="cal-min-${key}"
-                onchange="calSaveRun('${key}')"
-                style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px;font-size:16px;color:var(--text);font-family:inherit;outline:none">
-              <span style="color:var(--text-secondary);font-size:13px;white-space:nowrap">min</span>
-            </div>
-          </div>
-        </div>
-        <div id="cal-pace-${key}" style="font-size:12px;color:var(--orange);margin-top:6px;min-height:16px">${existingKm && existingMin ? formatPace(existingKm, existingMin) : ''}</div>`;
-    }
+    var existingKm = ds.runKm || '';
+    var existingMin = ds.runMin || '';
+    runHtml = '<hr class="section-divider">' +
+      '<div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:10px">Run Log</div>' +
+      '<div style="display:flex;gap:10px;align-items:flex-end">' +
+      '<div style="flex:1"><div style="font-size:11px;color:var(--text-secondary);margin-bottom:4px">Distance</div>' +
+      '<div style="display:flex;align-items:center;gap:6px">' +
+      '<input type="number" step="0.1" inputmode="decimal" placeholder="0.0" value="' + existingKm + '" id="cal-km-' + key + '" onchange="calSaveRun(\'' + key + '\')" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px;font-size:16px;color:var(--text);font-family:inherit;outline:none">' +
+      '<span style="color:var(--text-secondary);font-size:13px;white-space:nowrap">km</span></div></div>' +
+      '<div style="flex:1"><div style="font-size:11px;color:var(--text-secondary);margin-bottom:4px">Duration</div>' +
+      '<div style="display:flex;align-items:center;gap:6px">' +
+      '<input type="number" inputmode="numeric" placeholder="0" value="' + existingMin + '" id="cal-min-' + key + '" onchange="calSaveRun(\'' + key + '\')" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px;font-size:16px;color:var(--text);font-family:inherit;outline:none">' +
+      '<span style="color:var(--text-secondary);font-size:13px;white-space:nowrap">min</span></div></div></div>' +
+      '<div id="cal-pace-' + key + '" style="font-size:12px;color:var(--orange);margin-top:6px;min-height:16px">' + formatPace(existingKm, existingMin) + '</div>';
 
-    // Mark training complete button
-    completeHTML = `
-      <button class="complete-btn ${dayState.trainingDone ? 'done' : ''}" onclick="calToggleTraining('${key}')">
-        ${dayState.trainingDone ? '✓ Training Complete' : 'Mark Training Complete'}
-      </button>`;
-
+    completeHtml = '<button class="complete-btn ' + (ds.trainingDone ? 'done' : '') + '" onclick="calToggleTraining(\'' + key + '\')">' +
+      (ds.trainingDone ? 'Training Complete' : 'Mark Training Complete') + '</button>';
   } else {
-    // Future day - read only
-    rehabHTML = `<div style="font-size:13px;color:var(--text-secondary)">Daily exercises will appear here on the day.</div>`;
+    rHtml = '<div style="font-size:13px;color:var(--text-secondary)">Daily exercises will appear here on the day.</div>';
     if (plan.day.exercises && plan.day.exercises.length) {
-      exerciseHTML = `
-        <hr class="section-divider">
-        <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:8px">Planned Exercises</div>
-        ${plan.day.exercises.map(ex => `
-          <div style="padding:6px 0;border-bottom:1px solid var(--border);font-size:14px">
-            <span style="color:var(--text-secondary)">x</span> ${ex.name} <span style="color:var(--text-secondary);font-size:12px">${ex.sets}x${ex.reps}</span>
-          </div>`).join('')}`;
+      eHtml = '<hr class="section-divider"><div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-secondary);margin-bottom:8px">Planned Exercises</div>';
+      for (var i = 0; i < plan.day.exercises.length; i++) {
+        var ex = plan.day.exercises[i];
+        eHtml += '<div style="padding:6px 0;border-bottom:1px solid var(--border);font-size:14px">- ' + ex.name + ' <span style="color:var(--text-secondary);font-size:12px">' + ex.sets + 'x' + ex.reps + '</span></div>';
+      }
     }
   }
 
-  el.innerHTML = `
-    <div class="day-detail-card">
-      <div class="detail-date">${date.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</div>
-      <div class="detail-session">${plan.day.emoji} ${plan.day.title}</div>
-      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:12px">Week ${plan.week.week} - ${plan.week.title}</div>
-      <div style="margin-bottom:10px">${plan.day.details.map(d => `<div style="font-size:13px;color:var(--text-secondary);padding:2px 0">› ${d}</div>`).join('')}</div>
-      <hr class="section-divider">
-      ${rehabHTML}
-      ${exerciseHTML}
-      ${runHTML}
-      ${completeHTML}
-    </div>`;
+  var detailsHtml = '';
+  for (var i = 0; i < plan.day.details.length; i++) {
+    detailsHtml += '<div style="font-size:13px;color:var(--text-secondary);padding:2px 0">&#8250; ' + plan.day.details[i] + '</div>';
+  }
+
+  el.innerHTML = '<div class="day-detail-card">' +
+    '<div class="detail-date">' + date.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long',year:'numeric'}) + '</div>' +
+    '<div class="detail-session">' + plan.day.emoji + ' ' + plan.day.title + (plan.day.milestone ? ' <span style="color:var(--yellow);font-size:12px">MILESTONE</span>' : '') + '</div>' +
+    '<div style="font-size:12px;color:var(--text-secondary);margin-bottom:12px">Week ' + plan.week.week + ' - ' + plan.week.title + '</div>' +
+    '<div style="margin-bottom:10px">' + detailsHtml + '</div>' +
+    '<hr class="section-divider">' + rHtml + eHtml + runHtml + completeHtml + '</div>';
 }
 
 function calToggleRehab(key, idx) {
-  const state = getState();
+  var state = getState();
   if (!state[key]) state[key] = {};
   if (!state[key].rehab) state[key].rehab = {};
   state[key].rehab[idx] = !state[key].rehab[idx];
@@ -1175,7 +1054,7 @@ function calToggleRehab(key, idx) {
 }
 
 function calToggleExercise(key, idx) {
-  const state = getState();
+  var state = getState();
   if (!state[key]) state[key] = {};
   if (!state[key].exercises) state[key].exercises = {};
   state[key].exercises[idx] = !state[key].exercises[idx];
@@ -1184,7 +1063,7 @@ function calToggleExercise(key, idx) {
 }
 
 function calToggleTraining(key) {
-  const state = getState();
+  var state = getState();
   if (!state[key]) state[key] = {};
   state[key].trainingDone = !state[key].trainingDone;
   saveState(state);
@@ -1192,43 +1071,25 @@ function calToggleTraining(key) {
   renderCalendar();
 }
 
-// Run modal that works for any date key
-let activeRunKey = null;
-
-function openRunModalForDate(key) {
-  activeRunKey = key;
-  const state = getState();
-  const km = (state[key] && state[key].runKm);
-  const min = (state[key] && state[key].runMin);
-  document.getElementById('run-km').value = km || '';
-  document.getElementById('run-min').value = min || '';
-  document.getElementById('run-pace-display').textContent = '';
-  document.getElementById('run-modal').classList.add('open');
-}
-
 function formatPace(km, min) {
   km = parseFloat(km); min = parseFloat(min);
   if (!km || !min || km <= 0) return '';
-  const paceMin = Math.floor(min / km);
-  const paceSec = Math.round(((min / km) - paceMin) * 60);
+  var paceMin = Math.floor(min / km);
+  var paceSec = Math.round(((min / km) - paceMin) * 60);
   return 'Pace: ' + paceMin + ':' + String(paceSec).padStart(2,'0') + ' /km';
 }
 
 function calSaveRun(key) {
-  const kmEl = document.getElementById('cal-km-' + key);
-  const minEl = document.getElementById('cal-min-' + key);
-  const paceEl = document.getElementById('cal-pace-' + key);
+  var kmEl = document.getElementById('cal-km-' + key);
+  var minEl = document.getElementById('cal-min-' + key);
+  var paceEl = document.getElementById('cal-pace-' + key);
   if (!kmEl) return;
-  const km = parseFloat(kmEl.value);
-  const min = parseFloat(minEl.value);
-  const state = getState();
+  var km = parseFloat(kmEl.value);
+  var min = parseFloat(minEl.value);
+  var state = getState();
   if (!state[key]) state[key] = {};
-  if (km > 0) {
-    state[key].runKm = km;
-    state[key].trainingDone = true;
-  } else {
-    delete state[key].runKm;
-  }
+  if (km > 0) { state[key].runKm = km; state[key].trainingDone = true; }
+  else delete state[key].runKm;
   if (min > 0) state[key].runMin = min;
   else delete state[key].runMin;
   saveState(state);
@@ -1236,45 +1097,56 @@ function calSaveRun(key) {
   renderCalendar();
   renderWeeklyProgress();
 }
-const DAY_NAMES = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+// =====================
+// PROGRAM
+// =====================
+var DAY_NAMES = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 
 function renderProgram() {
-  const el = document.getElementById('program-list');
-  el.innerHTML = PLAN.map(week => `
-    <div class="week-row">
-      <div class="week-header" onclick="toggleWeek(${week.week})">
-        <div>
-          <div class="week-num">Week ${week.week}</div>
-          <div class="week-title">${week.title}</div>
-          <div class="week-km">Target: ${week.kmLow}-${week.kmHigh} km</div>
-        </div>
-        <svg class="week-chevron" id="chevron-${week.week}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-      <div class="week-days" id="week-days-${week.week}">
-        <div style="padding:10px 16px;font-size:12px;color:var(--text-secondary);border-bottom:1px solid var(--border)">${week.goal}</div>
-        ${week.days.map(day => `
-          <div class="day-row">
-            <div class="day-row-header">
-              <span class="day-name">${DAY_NAMES[day.dow-1]}</span>
-              <span style="font-size:14px">${day.emoji}</span>
-              <span class="day-session">${day.title}</span>
-            </div>
-            <div class="day-details">
-              ${day.details.map(d => `<div class="day-detail">x ${d}</div>`).join('')}
-              ${(day.exercises||[]).map(ex => `<div class="day-detail">x ${ex.name} ${ex.sets}x${ex.reps}</div>`).join('')}
-            </div>
-          </div>
-        `).join('')}
-      </div>
-    </div>
-  `).join('');
+  var el = document.getElementById('program-list');
+  var html = '';
+  for (var wi = 0; wi < PLAN.length; wi++) {
+    var week = PLAN[wi];
+    html += '<div class="week-row">' +
+      '<div class="week-header" onclick="toggleWeek(' + week.week + ')">' +
+      '<div>' +
+      '<div class="week-num">' + (week.milestone ? 'MILESTONE - ' : '') + 'Week ' + week.week + '</div>' +
+      '<div class="week-title">' + week.title + '</div>' +
+      '<div class="week-km">Target: ' + week.kmLow + '-' + week.kmHigh + ' km</div>' +
+      '</div>' +
+      '<svg class="week-chevron" id="chevron-' + week.week + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polyline points="6 9 12 15 18 9"/></svg>' +
+      '</div>' +
+      '<div class="week-days" id="week-days-' + week.week + '">' +
+      '<div style="padding:10px 16px;font-size:12px;color:var(--text-secondary);border-bottom:1px solid var(--border)">' + week.goal + '</div>';
+    for (var di = 0; di < week.days.length; di++) {
+      var day = week.days[di];
+      html += '<div class="day-row">' +
+        '<div class="day-row-header">' +
+        '<span class="day-name">' + DAY_NAMES[day.dow-1] + '</span>' +
+        '<span style="font-size:13px;color:var(--text-secondary)">' + day.emoji + '</span>' +
+        '<span class="day-session">' + day.title + (day.milestone ? ' *' : '') + '</span>' +
+        '</div><div class="day-details">';
+      for (var ddi = 0; ddi < day.details.length; ddi++) {
+        html += '<div class="day-detail">- ' + day.details[ddi] + '</div>';
+      }
+      if (day.exercises) {
+        for (var ei = 0; ei < day.exercises.length; ei++) {
+          html += '<div class="day-detail">- ' + day.exercises[ei].name + ' ' + day.exercises[ei].sets + 'x' + day.exercises[ei].reps + '</div>';
+        }
+      }
+      html += '</div></div>';
+    }
+    html += '</div></div>';
+  }
+  el.innerHTML = html;
 }
 
 function toggleWeek(weekNum) {
-  const days = document.getElementById(`week-days-${weekNum}`);
-  const chevron = document.getElementById(`chevron-${weekNum}`);
-  days.classList.toggle('open');
-  chevron.classList.toggle('open');
+  var days = document.getElementById('week-days-' + weekNum);
+  var chevron = document.getElementById('chevron-' + weekNum);
+  if (days) days.classList.toggle('open');
+  if (chevron) chevron.classList.toggle('open');
 }
 
 // =====================
@@ -1282,48 +1154,48 @@ function toggleWeek(weekNum) {
 // =====================
 function renderGoals() {
   document.getElementById('goals-days-label').textContent = daysToRace();
-  const state = getState();
-  const el = document.getElementById('goals-weekly-list');
-
-  el.innerHTML = PLAN.map(function(week) {
-    const weekStart = new Date(PROGRAM_START);
+  var state = getState();
+  var el = document.getElementById('goals-weekly-list');
+  var html = '';
+  for (var wi = 0; wi < PLAN.length; wi++) {
+    var week = PLAN[wi];
+    var weekStart = new Date(PROGRAM_START);
     weekStart.setDate(PROGRAM_START.getDate() + (week.week - 1) * 7);
-    let totalKm = 0;
-    let totalMin = 0;
-    for (let i = 0; i < 7; i++) {
-      const d = new Date(weekStart);
+    var totalKm = 0, totalMin = 0;
+    for (var i = 0; i < 7; i++) {
+      var d = new Date(weekStart);
       d.setDate(weekStart.getDate() + i);
-      const dk = dateKey(d);
-      const ds = state[dk] || {};
+      var dk = dateKey(d);
+      var ds = state[dk] || {};
       totalKm += ds.runKm || 0;
       totalMin += ds.runMin || 0;
     }
-    const pct = Math.min(totalKm / week.kmHigh * 100, 100);
-    const h = Math.floor(totalMin / 60);
-    const m = Math.round(totalMin % 60);
-    const timeStr = totalMin > 0 ? (h > 0 ? h + 'h ' + m + 'm' : m + 'm') : '--';
-    return '<div class="goal-card">' +
-      '<div class="goal-title">Week ' + week.week + ': ' + week.title + '</div>' +
+    var pct = Math.min(totalKm / week.kmHigh * 100, 100);
+    var h = Math.floor(totalMin / 60);
+    var m = Math.round(totalMin % 60);
+    var timeStr = totalMin > 0 ? (h > 0 ? h + 'h ' + m + 'm' : m + 'm') : '--';
+    html += '<div class="goal-card' + (week.milestone ? '" style="border-color:rgba(234,179,8,0.3)' : '') + '">' +
+      '<div class="goal-title">' + (week.milestone ? 'MILESTONE - ' : '') + 'Week ' + week.week + ': ' + week.title + '</div>' +
       '<div class="goal-sub">Target: ' + week.kmLow + '-' + week.kmHigh + ' km</div>' +
       '<div class="flex-between" style="margin-bottom:6px">' +
-        '<div>' +
-          '<div style="font-size:13px">' + totalKm.toFixed(1) + ' km logged</div>' +
-          '<div style="font-size:12px;color:var(--orange);margin-top:2px">Time on feet: ' + timeStr + '</div>' +
-        '</div>' +
-        '<span class="goal-pct">' + Math.round(pct) + '%</span>' +
+      '<div><div style="font-size:13px">' + totalKm.toFixed(1) + ' km logged</div>' +
+      '<div style="font-size:12px;color:var(--orange);margin-top:2px">Time on feet: ' + timeStr + '</div></div>' +
+      '<span class="goal-pct">' + Math.round(pct) + '%</span>' +
       '</div>' +
-      '<div class="progress-bar-wrap">' +
-        '<div class="progress-bar-fill ' + (pct >= 100 ? 'green' : '') + '" style="width:' + pct + '%"></div>' +
-      '</div>' +
-    '</div>';
-  }).join('');
+      '<div class="progress-bar-wrap"><div class="progress-bar-fill ' + (pct >= 100 ? 'green' : '') + '" style="width:' + pct + '%"></div></div>' +
+      '</div>';
+  }
+  el.innerHTML = html;
 }
 
 // =====================
-// CLOSE MODAL ON OVERLAY TAP
+// MODAL CLOSE ON OVERLAY TAP
 // =====================
 document.getElementById('run-modal').addEventListener('click', function(e) {
   if (e.target === this) closeRunModal();
+});
+document.getElementById('ex-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeExerciseEditor();
 });
 
 // =====================
