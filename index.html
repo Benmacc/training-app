@@ -245,6 +245,50 @@
   </div>
 
   <!-- TAB BAR -->
+  <!-- SETTINGS TAB -->
+  <div class="page" id="page-settings">
+    <div class="page-header"><h1>Settings</h1></div>
+
+    <div class="card" style="margin-top:12px">
+      <div class="card-label">Data Backup</div>
+      <div style="font-size:13px;color:var(--text-secondary);margin-bottom:16px;line-height:1.6">
+        Export your data regularly and save it to Notes or Messages as a backup. If your data is ever lost, paste it back in to restore everything instantly.
+      </div>
+      <button class="complete-btn" onclick="exportData()" style="margin-top:0">
+        Export Data to Clipboard
+      </button>
+      <button onclick="openImportModal()" style="width:100%;padding:13px;border-radius:12px;border:1px solid var(--border);background:none;color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;margin-top:10px">
+        Import Data from Backup
+      </button>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <div class="card-label">How to back up</div>
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.8">
+        1. Tap <strong style="color:var(--text)">Export Data</strong> above<br>
+        2. Open your <strong style="color:var(--text)">Notes app</strong><br>
+        3. Create a note called "BYU Trainer Backup"<br>
+        4. Paste and save<br>
+        5. Repeat weekly to stay protected
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <div class="card-label">How to restore</div>
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.8">
+        1. Open your Notes backup<br>
+        2. Select all and copy the text<br>
+        3. Tap <strong style="color:var(--text)">Import Data</strong> above<br>
+        4. Paste and tap Restore<br>
+        5. All your data will be back instantly
+      </div>
+    </div>
+
+    <div style="margin:20px 16px;text-align:center;font-size:12px;color:var(--text-dim)">
+      BYU Trainer - benmacc.github.io/training-app
+    </div>
+  </div>
+
   <div class="tab-bar">
     <button class="tab-btn active" onclick="switchTab('today')" id="tab-today">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
@@ -261,6 +305,10 @@
     <button class="tab-btn" onclick="switchTab('goals')" id="tab-goals">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
       Goals
+    </button>
+    <button class="tab-btn" onclick="switchTab('settings')" id="tab-settings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      Settings
     </button>
   </div>
 </div>
@@ -286,7 +334,18 @@
   </div>
 </div>
 
-<!-- EXERCISE EDITOR MODAL -->
+<!-- IMPORT DATA MODAL -->
+<div class="modal-overlay" id="import-modal">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <h3>Import Backup Data</h3>
+    <div style="font-size:13px;color:var(--text-secondary);margin-bottom:14px">Paste your backup code below. This will replace all current data.</div>
+    <textarea id="import-textarea" style="width:100%;height:160px;background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px;font-family:'DM Sans',sans-serif;font-size:13px;color:var(--text);outline:none;resize:none" placeholder="Paste backup code here..."></textarea>
+    <div id="import-status" style="font-size:13px;margin:8px 0;min-height:20px"></div>
+    <button class="complete-btn" onclick="importData()" style="margin-top:4px">Restore Data</button>
+    <button onclick="closeImportModal()" style="width:100%;padding:12px;border:none;background:none;color:var(--text-secondary);font-family:'DM Sans',sans-serif;font-size:15px;cursor:pointer;margin-top:8px">Cancel</button>
+  </div>
+</div>
 <div class="modal-overlay" id="ex-modal">
   <div class="modal" style="max-height:80vh;overflow-y:auto">
     <div class="modal-handle"></div>
@@ -1218,6 +1277,99 @@ function renderGoals() {
 }
 
 // =====================
+// EXPORT / IMPORT
+// =====================
+function exportData() {
+  var data = {
+    v: 2,
+    state: getState(),
+    exercises: localStorage.getItem('byu_exercises') || null,
+    exported: new Date().toISOString()
+  };
+  var json = JSON.stringify(data);
+  // Copy to clipboard
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(json).then(function() {
+      showExportConfirm('Copied! Paste into your Notes app to save.');
+    }).catch(function() {
+      fallbackCopy(json);
+    });
+  } else {
+    fallbackCopy(json);
+  }
+}
+
+function fallbackCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try {
+    document.execCommand('copy');
+    showExportConfirm('Copied! Paste into your Notes app to save.');
+  } catch(e) {
+    showExportConfirm('Could not copy automatically - select all text and copy manually.');
+  }
+  document.body.removeChild(ta);
+}
+
+function showExportConfirm(msg) {
+  var btn = document.querySelector('#page-settings .complete-btn');
+  var orig = btn.textContent;
+  btn.textContent = msg;
+  btn.style.background = 'var(--green)';
+  setTimeout(function() {
+    btn.textContent = orig;
+    btn.style.background = '';
+  }, 3000);
+}
+
+function openImportModal() {
+  document.getElementById('import-textarea').value = '';
+  document.getElementById('import-status').textContent = '';
+  document.getElementById('import-modal').classList.add('open');
+}
+
+function closeImportModal() {
+  document.getElementById('import-modal').classList.remove('open');
+}
+
+function importData() {
+  var text = document.getElementById('import-textarea').value.trim();
+  var statusEl = document.getElementById('import-status');
+  if (!text) {
+    statusEl.style.color = '#ef4444';
+    statusEl.textContent = 'Please paste your backup code first.';
+    return;
+  }
+  try {
+    var data = JSON.parse(text);
+    if (!data.v || !data.state) {
+      throw new Error('Invalid backup format');
+    }
+    // Restore state
+    saveState(data.state);
+    // Restore exercises if present
+    if (data.exercises) {
+      localStorage.setItem('byu_exercises', data.exercises);
+    }
+    statusEl.style.color = 'var(--green)';
+    statusEl.textContent = 'Data restored successfully!';
+    setTimeout(function() {
+      closeImportModal();
+      initToday();
+      renderStreak();
+    }, 1200);
+  } catch(e) {
+    statusEl.style.color = '#ef4444';
+    statusEl.textContent = 'Invalid backup code - please check and try again.';
+  }
+}
+
+// =====================
 // MODAL CLOSE ON OVERLAY TAP
 // =====================
 document.getElementById('run-modal').addEventListener('click', function(e) {
@@ -1225,6 +1377,9 @@ document.getElementById('run-modal').addEventListener('click', function(e) {
 });
 document.getElementById('ex-modal').addEventListener('click', function(e) {
   if (e.target === this) closeExerciseEditor();
+});
+document.getElementById('import-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeImportModal();
 });
 
 // =====================
