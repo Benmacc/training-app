@@ -323,6 +323,30 @@ function getRehabItems() {
   return DEFAULT_REHAB_ITEMS.slice();
 }
 
+// Returns the exercise list for a specific day key.
+// On first interaction with a day, snapshots the current list and locks it.
+function getRehabItemsForDay(key) {
+  var state = getState();
+  if (!state[key]) state[key] = {};
+  // If this day already has a snapshot, use it
+  if (state[key].rehabSnapshot) {
+    return state[key].rehabSnapshot;
+  }
+  // Otherwise return current list without snapshotting yet
+  return getRehabItems();
+}
+
+// Call this the first time a user interacts with a day's exercises
+// to lock in the current list
+function snapshotRehabForDay(key) {
+  var state = getState();
+  if (!state[key]) state[key] = {};
+  if (!state[key].rehabSnapshot) {
+    state[key].rehabSnapshot = getRehabItems();
+    saveState(state);
+  }
+}
+
 function saveRehabItems(items) {
   localStorage.setItem('byu_exercises', JSON.stringify(items));
 }
@@ -589,9 +613,9 @@ function initToday() {
 }
 
 function renderRehabList() {
-  var REHAB_ITEMS = getRehabItems();
-  var state = getState();
   var key = todayKey();
+  var REHAB_ITEMS = getRehabItemsForDay(key);
+  var state = getState();
   var checked = (state[key] && state[key].rehab) || {};
   var list = document.getElementById('rehab-list');
   var done = 0;
@@ -614,8 +638,9 @@ function renderRehabList() {
 }
 
 function toggleRehab(idx) {
-  var state = getState();
   var key = todayKey();
+  snapshotRehabForDay(key); // lock in list on first tick
+  var state = getState();
   if (!state[key]) state[key] = {};
   if (!state[key].rehab) state[key].rehab = {};
   state[key].rehab[idx] = !state[key].rehab[idx];
@@ -736,7 +761,6 @@ function renderWeeklyProgress() {
 }
 
 function renderStreak() {
-  var REHAB_ITEMS = getRehabItems();
   var state = getState();
   var streak = 0;
   var d = new Date();
@@ -745,8 +769,10 @@ function renderStreak() {
     var k = dateKey(d);
     var ds = state[k];
     if (!ds) break;
+    // Use the snapshot if it exists, otherwise current list
+    var items = ds.rehabSnapshot || getRehabItems();
     var allDone = true;
-    for (var i = 0; i < REHAB_ITEMS.length; i++) {
+    for (var i = 0; i < items.length; i++) {
       if (!ds.rehab || !ds.rehab[i]) { allDone = false; break; }
     }
     if (!allDone) break;
@@ -909,7 +935,7 @@ function renderCalendar() {
     var isToday = date.getTime() === today.getTime();
     var isSelected = selectedCalDate && date.getTime() === selectedCalDate.getTime();
     var isFuture = date > today;
-    var REHAB_ITEMS = getRehabItems();
+    var REHAB_ITEMS = ds.rehabSnapshot || getRehabItems();
     var status = 'status-outside';
     var label = '';
 
@@ -976,6 +1002,8 @@ function renderCalDayDetail(date) {
 
   var rehabChecked = ds.rehab || {};
   var exChecked = ds.exercises || {};
+  // Use the day's snapshot if it exists, otherwise current list
+  var REHAB_ITEMS = ds.rehabSnapshot || getRehabItems();
   var isRunDay = plan.day.type === 'run' || plan.day.type === 'milestone';
   var rHtml = '', eHtml = '', runHtml = '', completeHtml = '';
 
@@ -1043,6 +1071,7 @@ function renderCalDayDetail(date) {
 }
 
 function calToggleRehab(key, idx) {
+  snapshotRehabForDay(key); // lock in list on first tick
   var state = getState();
   if (!state[key]) state[key] = {};
   if (!state[key].rehab) state[key].rehab = {};
