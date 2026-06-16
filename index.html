@@ -462,8 +462,8 @@ var PLAN = [
   ]},
   { week:3, title:'Absorb Night Simulation', goal:'Recover and rebuild after night simulation', kmLow:45, kmHigh:55, days:[
     { dow:1, type:'recovery', emoji:'Walk', title:'Recovery Walk', details:['30-45 min walk only'] },
-    { dow:2, type:'strength', emoji:'Strength', title:'Strength A', details:['Increase sets to 4x8'], exercises:SA_ADV },
-    { dow:3, type:'run', emoji:'Run', title:'Easy Run 8 km', details:['Conversational pace'] },
+    { dow:2, type:'run', emoji:'Run', title:'Easy Run 8 km', details:['Conversational pace'] },
+    { dow:3, type:'strength', emoji:'Strength', title:'Strength A', details:['Increase sets to 4x8'], exercises:SA_ADV },
     { dow:4, type:'strength', emoji:'Strength', title:'Strength B', details:['Increase plank hold'], exercises:SB_ADV },
     { dow:5, type:'run', emoji:'Run', title:'Easy Run 6 km', details:['Easy recovery effort'] },
     { dow:6, type:'run', emoji:'Run', title:'Medium Long Run 15-18 km', details:['Easy effort'] },
@@ -642,8 +642,19 @@ function switchTab(tab) {
   document.getElementById('page-' + tab).classList.add('active');
   document.getElementById('tab-' + tab).classList.add('active');
   if (tab === 'calendar') renderCalendar();
-  if (tab === 'program') renderProgram();
+  if (tab === 'program') { renderProgram(); scrollToCurrentWeek(); }
   if (tab === 'goals') renderGoals();
+}
+
+function scrollToCurrentWeek() {
+  var plan = getWeekAndDay(new Date());
+  if (!plan || !plan.week) return;
+  var weekNum = plan.week.week;
+  // Small delay to let the DOM render first
+  setTimeout(function() {
+    var el = document.getElementById('week-row-' + weekNum);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 50);
 }
 
 // =====================
@@ -1191,28 +1202,43 @@ function calSaveRun(key) {
 // =====================
 var DAY_NAMES = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 
+function getProgramDayDate(weekNum, dow) {
+  // dow: 1=Mon, 7=Sun
+  var start = new Date(PROGRAM_START);
+  start.setHours(0,0,0,0);
+  var dayOffset = (weekNum - 1) * 7 + (dow - 1);
+  var date = new Date(start);
+  date.setDate(start.getDate() + dayOffset);
+  var day = date.getDate();
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return day + ' ' + months[date.getMonth()];
+}
+
 function renderProgram() {
   var el = document.getElementById('program-list');
+  var currentPlan = getWeekAndDay(new Date());
+  var currentWeekNum = currentPlan && currentPlan.week ? currentPlan.week.week : -1;
   var html = '';
   for (var wi = 0; wi < PLAN.length; wi++) {
     var week = PLAN[wi];
-    html += '<div class="week-row">' +
+    var isCurrent = week.week === currentWeekNum;
+    html += '<div class="week-row" id="week-row-' + week.week + '" style="' + (isCurrent ? 'border-color:rgba(255,107,0,0.5);' : '') + '">' +
       '<div class="week-header" onclick="toggleWeek(' + week.week + ')">' +
       '<div>' +
-      '<div class="week-num">' + (week.milestone ? 'MILESTONE - ' : '') + 'Week ' + week.week + '</div>' +
+      '<div class="week-num">' + (isCurrent ? 'CURRENT - ' : '') + (week.milestone ? 'MILESTONE - ' : '') + 'Week ' + week.week + '</div>' +
       '<div class="week-title">' + week.title + '</div>' +
       '<div class="week-km">Target: ' + week.kmLow + '-' + week.kmHigh + ' km</div>' +
       '</div>' +
       '<svg class="week-chevron" id="chevron-' + week.week + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><polyline points="6 9 12 15 18 9"/></svg>' +
       '</div>' +
-      '<div class="week-days" id="week-days-' + week.week + '">' +
+      '<div class="week-days' + (isCurrent ? ' open' : '') + '" id="week-days-' + week.week + '">' +
       '<div style="padding:10px 16px;font-size:12px;color:var(--text-secondary);border-bottom:1px solid var(--border)">' + week.goal + '</div>';
     for (var di = 0; di < week.days.length; di++) {
       var day = week.days[di];
       html += '<div class="day-row">' +
         '<div class="day-row-header">' +
         '<span class="day-name">' + DAY_NAMES[day.dow-1] + '</span>' +
-        '<span style="font-size:13px;color:var(--text-secondary)">' + day.emoji + '</span>' +
+        '<span style="font-size:11px;color:var(--text-secondary);width:52px;flex-shrink:0">' + getProgramDayDate(week.week, day.dow) + '</span>' +
         '<span class="day-session">' + day.title + (day.milestone ? ' *' : '') + '</span>' +
         '</div><div class="day-details">';
       for (var ddi = 0; ddi < day.details.length; ddi++) {
