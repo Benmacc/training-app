@@ -6,13 +6,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="BYU Trainer">
-<meta name="theme-color" content="#ff6b00">
+<meta name="theme-color" content="var(--orange)">
 <title>BYU Trainer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --orange: #ff6b00; --orange-light: #ff8c38; --orange-dim: rgba(255,107,0,0.12);
+    --orange: #5bb8f5; --orange-light: #82ccf7; --orange-dim: rgba(91,184,245,0.12);
     --green: #22c55e; --blue: #3b82f6; --purple: #a855f7; --yellow: #eab308;
     --bg: #0a0a0a; --surface: #141414; --surface2: #1e1e1e;
     --border: rgba(255,255,255,0.07); --text: #f0f0f0; --text-secondary: #888; --text-dim: #555;
@@ -33,7 +33,7 @@
   .page-header .subtitle { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
   .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; margin: 12px 16px 0; }
   .card-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 12px; }
-  .countdown-card { background: linear-gradient(135deg, #1a0d00 0%, #0f0f0f 100%); border: 1px solid rgba(255,107,0,0.2); border-radius: var(--radius); padding: 18px; margin: 12px 16px 0; display: flex; align-items: center; justify-content: space-between; }
+  .countdown-card { background: linear-gradient(135deg, #1a0d00 0%, #0f0f0f 100%); border: 1px solid rgba(91,184,245,0.2); border-radius: var(--radius); padding: 18px; margin: 12px 16px 0; display: flex; align-items: center; justify-content: space-between; }
   .countdown-card .race-name { font-size: 15px; font-weight: 600; }
   .countdown-card .race-date { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
   .countdown-card .days-num { font-size: 38px; font-weight: 700; color: var(--orange); font-family: 'DM Mono', monospace; line-height: 1; }
@@ -56,11 +56,11 @@
   .progress-bar-wrap { background: rgba(255,255,255,0.06); border-radius: 100px; height: 6px; overflow: hidden; }
   .progress-bar-fill { height: 100%; border-radius: 100px; background: var(--orange); transition: width 0.4s ease; }
   .progress-bar-fill.green { background: var(--green); }
-  .streak-badge { display: inline-flex; align-items: center; gap: 5px; background: var(--orange-dim); border: 1px solid rgba(255,107,0,0.2); border-radius: 100px; padding: 3px 10px; font-size: 12px; font-weight: 600; color: var(--orange); }
+  .streak-badge { display: inline-flex; align-items: center; gap: 5px; background: var(--orange-dim); border: 1px solid rgba(91,184,245,0.2); border-radius: 100px; padding: 3px 10px; font-size: 12px; font-weight: 600; color: var(--orange); }
   .complete-btn { width: 100%; padding: 13px; border-radius: 12px; border: none; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-top: 12px; background: var(--orange); color: white; }
   .complete-btn.done { background: var(--green); }
   .complete-btn:active { transform: scale(0.97); }
-  .log-run-btn { display: flex; align-items: center; gap: 8px; background: var(--orange-dim); border: 1px solid rgba(255,107,0,0.2); border-radius: 10px; padding: 10px 14px; cursor: pointer; font-size: 14px; font-weight: 500; color: var(--orange); font-family: 'DM Sans', sans-serif; width: 100%; margin-top: 10px; transition: all 0.2s; }
+  .log-run-btn { display: flex; align-items: center; gap: 8px; background: var(--orange-dim); border: 1px solid rgba(91,184,245,0.2); border-radius: 10px; padding: 10px 14px; cursor: pointer; font-size: 14px; font-weight: 500; color: var(--orange); font-family: 'DM Sans', sans-serif; width: 100%; margin-top: 10px; transition: all 0.2s; }
   .section-divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
   .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 12px; }
   .cal-header-row { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 6px; }
@@ -233,13 +233,15 @@
   <!-- GOALS TAB -->
   <div class="page" id="page-goals">
     <div class="page-header"><h1>Goals</h1></div>
-    <div class="goal-card" style="margin-top:12px;background:linear-gradient(135deg,#1a0d00,#0f0f0f);border-color:rgba(255,107,0,0.2)">
+    <div class="goal-card" style="margin-top:12px;background:linear-gradient(135deg,#1a0d00,#0f0f0f);border-color:rgba(91,184,245,0.2)">
       <div class="goal-title">BYU Backyard Ultra - 24 Laps</div>
       <div class="goal-sub">160.9 km total - September 19, 2026</div>
       <div class="flex-between" style="margin-top:8px">
         <span style="font-size:12px;color:var(--text-secondary)"><span class="stat-num" id="goals-days-label" style="font-size:22px;font-weight:700;color:var(--orange)">-</span> days away</span>
       </div>
     </div>
+    <div style="margin:16px 16px 8px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-secondary)">Shoe Mileage</div>
+    <div id="goals-shoe-list"></div>
     <div style="margin:16px 16px 8px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-secondary)">Weekly Targets</div>
     <div id="goals-weekly-list"></div>
   </div>
@@ -329,6 +331,11 @@
       <div style="display:flex;align-items:center;color:var(--text-secondary);font-weight:600">min</div>
     </div>
     <div id="run-pace-display" style="font-size:13px;color:var(--orange);margin-bottom:16px;min-height:18px"></div>
+    <div class="modal-label">Shoes</div>
+    <div style="display:flex;gap:10px;margin-bottom:16px">
+      <button id="shoe-btn-1" onclick="selectShoe(1)" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s">Pair 1</button>
+      <button id="shoe-btn-2" onclick="selectShoe(2)" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s">Pair 2</button>
+    </div>
     <button class="complete-btn" onclick="saveRun()">Save Run</button>
     <button onclick="closeRunModal()" style="width:100%;padding:12px;border:none;background:none;color:var(--text-secondary);font-family:'DM Sans',sans-serif;font-size:15px;cursor:pointer;margin-top:8px">Cancel</button>
   </div>
@@ -912,16 +919,43 @@ function saveExercises() {
 // =====================
 // RUN MODAL
 // =====================
-var activeRunKey = null;
+var activeShoe = null;
+
+function selectShoe(pair) {
+  activeShoe = activeShoe === pair ? null : pair;
+  var btn1 = document.getElementById('shoe-btn-1');
+  var btn2 = document.getElementById('shoe-btn-2');
+  if (btn1) {
+    btn1.style.borderColor = activeShoe === 1 ? 'var(--orange)' : 'var(--border)';
+    btn1.style.background = activeShoe === 1 ? 'var(--orange-dim)' : 'var(--surface2)';
+    btn1.style.color = activeShoe === 1 ? 'var(--orange)' : 'var(--text)';
+  }
+  if (btn2) {
+    btn2.style.borderColor = activeShoe === 2 ? 'var(--orange)' : 'var(--border)';
+    btn2.style.background = activeShoe === 2 ? 'var(--orange-dim)' : 'var(--surface2)';
+    btn2.style.color = activeShoe === 2 ? 'var(--orange)' : 'var(--text)';
+  }
+}
+
+function calSelectShoe(key, pair) {
+  var state = getState();
+  if (!state[key]) state[key] = {};
+  state[key].shoesPair = state[key].shoesPair === pair ? null : pair;
+  saveState(state);
+  renderCalDayDetail(calDetailDate);
+  renderGoals();
+}
 
 function openRunModal() {
   activeRunKey = todayKey();
   var state = getState();
   var km = state[activeRunKey] && state[activeRunKey].runKm;
   var min = state[activeRunKey] && state[activeRunKey].runMin;
+  activeShoe = (state[activeRunKey] && state[activeRunKey].shoesPair) || null;
   document.getElementById('run-km').value = km || '';
   document.getElementById('run-min').value = min || '';
   document.getElementById('run-pace-display').textContent = '';
+  selectShoe(activeShoe);
   document.getElementById('run-modal').classList.add('open');
 }
 
@@ -955,6 +989,7 @@ function saveRun() {
   state[key].runKm = km;
   state[key].runMin = min || null;
   state[key].trainingDone = true;
+  if (activeShoe) state[key].shoesPair = activeShoe;
   saveState(state);
   closeRunModal();
   if (key === todayKey()) {
@@ -1112,7 +1147,12 @@ function renderCalDayDetail(date) {
       '<div style="display:flex;align-items:center;gap:6px">' +
       '<input type="number" inputmode="numeric" placeholder="0" value="' + existingMin + '" id="cal-min-' + key + '" onchange="calSaveRun(\'' + key + '\')" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:10px;font-size:16px;color:var(--text);font-family:inherit;outline:none">' +
       '<span style="color:var(--text-secondary);font-size:13px;white-space:nowrap">min</span></div></div></div>' +
-      '<div id="cal-pace-' + key + '" style="font-size:12px;color:var(--orange);margin-top:6px;min-height:16px">' + formatPace(existingKm, existingMin) + '</div>';
+      '<div id="cal-pace-' + key + '" style="font-size:12px;color:var(--orange);margin-top:6px;min-height:16px">' + formatPace(existingKm, existingMin) + '</div>' +
+      '<div style="font-size:11px;color:var(--text-secondary);margin:10px 0 6px">Shoes</div>' +
+      '<div style="display:flex;gap:8px">' +
+      '<button id="cal-shoe-1-' + key + '" onclick="calSelectShoe(\'' + key + '\',1)" style="flex:1;padding:10px;border-radius:10px;border:1px solid ' + (ds.shoesPair === 1 ? 'var(--orange)' : 'var(--border)') + ';background:' + (ds.shoesPair === 1 ? 'var(--orange-dim)' : 'var(--surface2)') + ';color:' + (ds.shoesPair === 1 ? 'var(--orange)' : 'var(--text)') + ';font-family:inherit;font-size:13px;font-weight:600;cursor:pointer">Pair 1</button>' +
+      '<button id="cal-shoe-2-' + key + '" onclick="calSelectShoe(\'' + key + '\',2)" style="flex:1;padding:10px;border-radius:10px;border:1px solid ' + (ds.shoesPair === 2 ? 'var(--orange)' : 'var(--border)') + ';background:' + (ds.shoesPair === 2 ? 'var(--orange-dim)' : 'var(--surface2)') + ';color:' + (ds.shoesPair === 2 ? 'var(--orange)' : 'var(--text)') + ';font-family:inherit;font-size:13px;font-weight:600;cursor:pointer">Pair 2</button>' +
+      '</div>';
 
     completeHtml = '<button class="complete-btn ' + (ds.trainingDone ? 'done' : '') + '" onclick="calToggleTraining(\'' + key + '\')">' +
       (ds.trainingDone ? 'Training Complete' : 'Mark Training Complete') + '</button>';
@@ -1222,7 +1262,7 @@ function renderProgram() {
   for (var wi = 0; wi < PLAN.length; wi++) {
     var week = PLAN[wi];
     var isCurrent = week.week === currentWeekNum;
-    html += '<div class="week-row" id="week-row-' + week.week + '" style="' + (isCurrent ? 'border-color:rgba(255,107,0,0.5);' : '') + '">' +
+    html += '<div class="week-row" id="week-row-' + week.week + '" style="' + (isCurrent ? 'border-color:rgba(91,184,245,0.5);' : '') + '">' +
       '<div class="week-header" onclick="toggleWeek(' + week.week + ')">' +
       '<div>' +
       '<div class="week-num">' + (isCurrent ? 'CURRENT - ' : '') + (week.milestone ? 'MILESTONE - ' : '') + 'Week ' + week.week + '</div>' +
@@ -1269,6 +1309,43 @@ function toggleWeek(weekNum) {
 function renderGoals() {
   document.getElementById('goals-days-label').textContent = daysToRace();
   var state = getState();
+
+  // Shoe mileage — Pair 1 starts at 691km
+  var PAIR1_BASE = 691;
+  var PAIR2_BASE = 0;
+  var pair1km = PAIR1_BASE, pair2km = PAIR2_BASE;
+  var keys = Object.keys(state);
+  for (var ki = 0; ki < keys.length; ki++) {
+    var ds = state[keys[ki]];
+    if (ds && ds.runKm && ds.shoesPair === 1) pair1km += ds.runKm;
+    if (ds && ds.runKm && ds.shoesPair === 2) pair2km += ds.runKm;
+  }
+  // Recommended replacement at 700-800km
+  var WARN_KM = 700, MAX_KM = 800;
+  var p1pct = Math.min(pair1km / MAX_KM * 100, 100);
+  var p2pct = Math.min(pair2km / MAX_KM * 100, 100);
+  var p1color = pair1km >= WARN_KM ? '#ef4444' : pair1km >= 600 ? 'var(--yellow)' : 'var(--green)';
+  var p2color = pair2km >= WARN_KM ? '#ef4444' : pair2km >= 600 ? 'var(--yellow)' : 'var(--green)';
+
+  document.getElementById('goals-shoe-list').innerHTML =
+    '<div class="goal-card">' +
+      '<div class="flex-between" style="margin-bottom:10px">' +
+        '<div><div class="goal-title">Pair 1</div>' +
+        '<div class="goal-sub" style="margin-bottom:0">' + pair1km.toFixed(1) + ' km total' + (pair1km >= WARN_KM ? ' - Replace soon!' : '') + '</div></div>' +
+        '<span style="font-size:22px;font-weight:700;color:' + p1color + '">' + Math.round(p1pct) + '%</span>' +
+      '</div>' +
+      '<div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:' + p1pct + '%;background:' + p1color + '"></div></div>' +
+      '<div style="font-size:11px;color:var(--text-secondary);margin-top:6px">Recommended replacement: 700-800 km</div>' +
+    '</div>' +
+    '<div class="goal-card">' +
+      '<div class="flex-between" style="margin-bottom:10px">' +
+        '<div><div class="goal-title">Pair 2</div>' +
+        '<div class="goal-sub" style="margin-bottom:0">' + pair2km.toFixed(1) + ' km total</div></div>' +
+        '<span style="font-size:22px;font-weight:700;color:' + p2color + '">' + Math.round(p2pct) + '%</span>' +
+      '</div>' +
+      '<div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:' + p2pct + '%;background:' + p2color + '"></div></div>' +
+      '<div style="font-size:11px;color:var(--text-secondary);margin-top:6px">Recommended replacement: 700-800 km</div>' +
+    '</div>';
   var el = document.getElementById('goals-weekly-list');
   var html = '';
   for (var wi = 0; wi < PLAN.length; wi++) {
