@@ -121,8 +121,7 @@
   .ex-input-name { flex: 1; }
   .ex-input-sm { width: 54px; text-align: center; }
   .ex-del-btn { background: none; border: none; color: #ef4444; font-size: 20px; cursor: pointer; padding: 0 4px; line-height: 1; flex-shrink: 0; }
-  .ex-add-btn { width: 100%; padding: 10px; border-radius: 10px; border: 1px dashed var(--border); background: none; color: var(--orange); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 10px; }
-  .icon-btn { background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-secondary); }
+  .ex-add-btn { width: 100%; padding: 10px; border-radius: 10px; border: 1px dashed var(--border); background: none; color: var(--orange); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 10px; } background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-secondary); }
 </style>
 </head>
 <body>
@@ -152,7 +151,6 @@
         <div class="session-milestone" id="today-milestone" style="display:none">MILESTONE EVENT</div>
       </div>
     </div>
-    <!-- DAILY EXERCISES -->
     <div class="card">
       <div class="flex-between" style="margin-bottom:12px">
         <div class="card-label" style="margin-bottom:0">Daily Exercises</div>
@@ -333,8 +331,8 @@
     <div id="run-pace-display" style="font-size:13px;color:var(--orange);margin-bottom:16px;min-height:18px"></div>
     <div class="modal-label">Shoes</div>
     <div style="display:flex;gap:10px;margin-bottom:16px">
-      <button id="shoe-btn-1" onclick="selectShoe(1)" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s">Pair 1</button>
-      <button id="shoe-btn-2" onclick="selectShoe(2)" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s">Pair 2</button>
+      <button id="shoe-btn-1" onclick="selectShoe(1)" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s">Ghost 17 (Jan 2026)</button>
+      <button id="shoe-btn-2" onclick="selectShoe(2)" style="flex:1;padding:12px;border-radius:12px;border:1px solid var(--border);background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s">Ghost 17 (Jul 2026)</button>
     </div>
     <button class="complete-btn" onclick="saveRun()">Save Run</button>
     <button onclick="closeRunModal()" style="width:100%;padding:12px;border:none;background:none;color:var(--text-secondary);font-family:'DM Sans',sans-serif;font-size:15px;cursor:pointer;margin-top:8px">Cancel</button>
@@ -480,9 +478,9 @@ var PLAN = [
     { dow:1, type:'recovery', emoji:'Walk', title:'Recovery', details:['Walk and mobility'] },
     { dow:2, type:'run', emoji:'Run', title:'Easy Run 10 km', details:['Conversational pace'] },
     { dow:3, type:'strength', emoji:'Strength', title:'Strength A', details:['Maintain 4x8 volume'], exercises:SA_ADV },
-    { dow:4, type:'run', emoji:'Run', title:'Easy Run 7 km', details:['Easy effort'] },
-    { dow:5, type:'strength', emoji:'Strength', title:'Strength B', details:['Maintain volume'], exercises:SB_ADV },
-    { dow:6, type:'recovery', emoji:'Walk', title:'Recovery', details:['Walk and mobility'] },
+    { dow:4, type:'recovery', emoji:'Walk', title:'Recovery', details:['Walk and mobility'] },
+    { dow:5, type:'run', emoji:'Run', title:'Easy Run 7 km', details:['Easy effort'] },
+    { dow:6, type:'strength', emoji:'Strength', title:'Strength B', details:['Maintain volume'], exercises:SB_ADV },
     { dow:7, type:'run', emoji:'Run', title:'Long Run 28-32 km', details:['Easy aerobic effort','Fuel every 30-40 min','Practice lap mental focus'] }
   ]},
   { week:5, title:'Recovery Week', goal:'Absorb the first build block', kmLow:35, kmHigh:40, days:[
@@ -859,9 +857,7 @@ function renderStreak() {
   document.getElementById('streak-badge').textContent = streak + ' day streak';
 }
 
-// =====================
-// EXERCISE EDITOR
-// =====================
+
 var editingExercises = [];
 
 function openExerciseEditor() {
@@ -1150,8 +1146,8 @@ function renderCalDayDetail(date) {
       '<div id="cal-pace-' + key + '" style="font-size:12px;color:var(--orange);margin-top:6px;min-height:16px">' + formatPace(existingKm, existingMin) + '</div>' +
       '<div style="font-size:11px;color:var(--text-secondary);margin:10px 0 6px">Shoes</div>' +
       '<div style="display:flex;gap:8px">' +
-      '<button id="cal-shoe-1-' + key + '" onclick="calSelectShoe(\'' + key + '\',1)" style="flex:1;padding:10px;border-radius:10px;border:1px solid ' + (ds.shoesPair === 1 ? 'var(--orange)' : 'var(--border)') + ';background:' + (ds.shoesPair === 1 ? 'var(--orange-dim)' : 'var(--surface2)') + ';color:' + (ds.shoesPair === 1 ? 'var(--orange)' : 'var(--text)') + ';font-family:inherit;font-size:13px;font-weight:600;cursor:pointer">Pair 1</button>' +
-      '<button id="cal-shoe-2-' + key + '" onclick="calSelectShoe(\'' + key + '\',2)" style="flex:1;padding:10px;border-radius:10px;border:1px solid ' + (ds.shoesPair === 2 ? 'var(--orange)' : 'var(--border)') + ';background:' + (ds.shoesPair === 2 ? 'var(--orange-dim)' : 'var(--surface2)') + ';color:' + (ds.shoesPair === 2 ? 'var(--orange)' : 'var(--text)') + ';font-family:inherit;font-size:13px;font-weight:600;cursor:pointer">Pair 2</button>' +
+      '<button id="cal-shoe-1-' + key + '" onclick="calSelectShoe(\'' + key + '\',1)" style="flex:1;padding:10px;border-radius:10px;border:1px solid ' + (ds.shoesPair === 1 ? 'var(--orange)' : 'var(--border)') + ';background:' + (ds.shoesPair === 1 ? 'var(--orange-dim)' : 'var(--surface2)') + ';color:' + (ds.shoesPair === 1 ? 'var(--orange)' : 'var(--text)') + ';font-family:inherit;font-size:13px;font-weight:600;cursor:pointer">Ghost 17 (Jan 2026)</button>' +
+      '<button id="cal-shoe-2-' + key + '" onclick="calSelectShoe(\'' + key + '\',2)" style="flex:1;padding:10px;border-radius:10px;border:1px solid ' + (ds.shoesPair === 2 ? 'var(--orange)' : 'var(--border)') + ';background:' + (ds.shoesPair === 2 ? 'var(--orange-dim)' : 'var(--surface2)') + ';color:' + (ds.shoesPair === 2 ? 'var(--orange)' : 'var(--text)') + ';font-family:inherit;font-size:13px;font-weight:600;cursor:pointer">Ghost 17 (Jul 2026)</button>' +
       '</div>';
 
     completeHtml = '<button class="complete-btn ' + (ds.trainingDone ? 'done' : '') + '" onclick="calToggleTraining(\'' + key + '\')">' +
@@ -1172,11 +1168,6 @@ function renderCalDayDetail(date) {
     detailsHtml += '<div style="font-size:13px;color:var(--text-secondary);padding:2px 0">&#8250; ' + plan.day.details[i] + '</div>';
   }
 
-  el.innerHTML = '<div class="day-detail-card">' +
-    '<div class="detail-date">' + date.toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long',year:'numeric'}) + '</div>' +
-    '<div class="detail-session">' + plan.day.emoji + ' ' + plan.day.title + (plan.day.milestone ? ' <span style="color:var(--yellow);font-size:12px">MILESTONE</span>' : '') + '</div>' +
-    '<div style="font-size:12px;color:var(--text-secondary);margin-bottom:12px">Week ' + plan.week.week + ' - ' + plan.week.title + '</div>' +
-    '<div style="margin-bottom:10px">' + detailsHtml + '</div>' +
     '<hr class="section-divider">' + rHtml + eHtml + runHtml + completeHtml + '</div>';
 }
 
@@ -1330,7 +1321,7 @@ function renderGoals() {
   document.getElementById('goals-shoe-list').innerHTML =
     '<div class="goal-card">' +
       '<div class="flex-between" style="margin-bottom:10px">' +
-        '<div><div class="goal-title">Pair 1</div>' +
+        '<div><div class="goal-title">Ghost 17 (Jan 2026)</div>' +
         '<div class="goal-sub" style="margin-bottom:0">' + pair1km.toFixed(1) + ' km total' + (pair1km >= WARN_KM ? ' - Replace soon!' : '') + '</div></div>' +
         '<span style="font-size:22px;font-weight:700;color:' + p1color + '">' + Math.round(p1pct) + '%</span>' +
       '</div>' +
@@ -1339,7 +1330,7 @@ function renderGoals() {
     '</div>' +
     '<div class="goal-card">' +
       '<div class="flex-between" style="margin-bottom:10px">' +
-        '<div><div class="goal-title">Pair 2</div>' +
+        '<div><div class="goal-title">Ghost 17 (Jul 2026)</div>' +
         '<div class="goal-sub" style="margin-bottom:0">' + pair2km.toFixed(1) + ' km total</div></div>' +
         '<span style="font-size:22px;font-weight:700;color:' + p2color + '">' + Math.round(p2pct) + '%</span>' +
       '</div>' +
