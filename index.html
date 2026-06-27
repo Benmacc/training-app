@@ -122,6 +122,8 @@
   .ex-input-sm { width: 54px; text-align: center; }
   .ex-del-btn { background: none; border: none; color: #ef4444; font-size: 20px; cursor: pointer; padding: 0 4px; line-height: 1; flex-shrink: 0; }
   .ex-add-btn { width: 100%; padding: 10px; border-radius: 10px; border: 1px dashed var(--border); background: none; color: var(--orange); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 10px; } background: none; border: none; cursor: pointer; padding: 4px; color: var(--text-secondary); }
+  .hydration-btn { padding: 10px 6px; border-radius: 10px; border: 1px solid var(--border); background: var(--orange-dim); color: var(--orange); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.15s; text-align: center; }
+  .hydration-btn:active { transform: scale(0.95); opacity: 0.8; }
 </style>
 </head>
 <body>
@@ -151,6 +153,28 @@
         <div class="session-milestone" id="today-milestone" style="display:none">MILESTONE EVENT</div>
       </div>
     </div>
+    <!-- HYDRATION -->
+    <div class="card">
+      <div class="flex-between" style="margin-bottom:12px">
+        <div class="card-label" style="margin-bottom:0">Hydration</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span id="hydration-ml" style="font-size:22px;font-weight:700;font-family:'DM Mono',monospace;color:var(--orange)">0</span>
+          <span style="font-size:13px;color:var(--text-secondary)">/ 3500 ml</span>
+          <button onclick="resetHydration()" style="background:none;border:none;color:var(--text-dim);font-size:11px;cursor:pointer;padding:2px 6px">Reset</button>
+        </div>
+      </div>
+      <div style="position:relative;height:18px;background:rgba(255,255,255,0.06);border-radius:100px;overflow:hidden;margin-bottom:12px">
+        <div id="hydration-bar" style="height:100%;border-radius:100px;background:linear-gradient(90deg,#5bb8f5,#82ccf7);transition:width 0.4s ease;width:0%"></div>
+        <div id="hydration-pct" style="position:absolute;right:8px;top:0;bottom:0;display:flex;align-items:center;font-size:11px;font-weight:700;color:white">0%</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px">
+        <button onclick="addHydration(100)" class="hydration-btn">+100</button>
+        <button onclick="addHydration(250)" class="hydration-btn">+250</button>
+        <button onclick="addHydration(500)" class="hydration-btn">+500</button>
+        <button onclick="addHydration(750)" class="hydration-btn">+750</button>
+      </div>
+      <div id="hydration-msg" style="font-size:12px;color:var(--text-secondary);margin-top:10px;text-align:center;min-height:16px"></div>
+    </div>
     <div class="card">
       <div class="flex-between" style="margin-bottom:12px">
         <div class="card-label" style="margin-bottom:0">Daily Exercises</div>
@@ -177,6 +201,7 @@
       <div id="run-log-section"></div>
       <button class="complete-btn" id="training-complete-btn" onclick="toggleTrainingComplete()">Mark Training Complete</button>
     </div>
+
     <!-- WEEKLY PROGRESS -->
     <div class="card">
       <div class="card-label">This Week</div>
@@ -685,6 +710,7 @@ function initToday() {
   renderTrainingSection();
   renderWeeklyProgress();
   renderStreak();
+  renderHydration();
 }
 
 function renderRehabList() {
@@ -857,6 +883,50 @@ function renderStreak() {
   document.getElementById('streak-badge').textContent = streak + ' day streak';
 }
 
+
+// =====================
+// HYDRATION
+// =====================
+var HYDRATION_TARGET = 3500;
+
+function getHydrationToday() {
+  var state = getState();
+  var key = todayKey();
+  return (state[key] && state[key].hydrationMl) || 0;
+}
+
+function renderHydration() {
+  var ml = getHydrationToday();
+  var pct = Math.min(Math.round(ml / HYDRATION_TARGET * 100), 100);
+  document.getElementById('hydration-ml').textContent = ml;
+  document.getElementById('hydration-bar').style.width = pct + '%';
+  document.getElementById('hydration-pct').textContent = pct + '%';
+  var msg = '';
+  if (ml === 0) msg = 'Tap to start logging your fluids';
+  else if (ml < 1000) msg = 'Keep going - just getting started';
+  else if (ml < 2000) msg = 'Good start - keep sipping';
+  else if (ml < 3000) msg = 'Getting there - almost at target';
+  else if (ml < HYDRATION_TARGET) msg = 'Nearly there!';
+  else msg = 'Target hit! Great work today';
+  document.getElementById('hydration-msg').textContent = msg;
+}
+
+function addHydration(ml) {
+  var state = getState();
+  var key = todayKey();
+  if (!state[key]) state[key] = {};
+  state[key].hydrationMl = (state[key].hydrationMl || 0) + ml;
+  saveState(state);
+  renderHydration();
+}
+
+function resetHydration() {
+  var state = getState();
+  var key = todayKey();
+  if (state[key]) state[key].hydrationMl = 0;
+  saveState(state);
+  renderHydration();
+}
 
 var editingExercises = [];
 
